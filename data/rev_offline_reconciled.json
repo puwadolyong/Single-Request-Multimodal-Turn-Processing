@@ -1,0 +1,1319 @@
+{
+  "e1_denominator_reconciliation": {
+    "W": {
+      "total_replies": 512,
+      "single_sentence": 28,
+      "multi_sentence": 484,
+      "affected_replies": 0,
+      "gap_events_over_20ms": 0,
+      "pct_of_multi_484": 0.0,
+      "pct_of_all_512": 0.0,
+      "ttfa_multi_ms": {
+        "n": 484,
+        "mean": 2178.112727272727,
+        "sd": 484.73826121240916,
+        "median": 2121.38,
+        "p90": 2843.169,
+        "p95": 3028.2055,
+        "max": 4513.61
+      },
+      "ttfa_all_ms": {
+        "n": 512,
+        "mean": 2145.71375,
+        "sd": 498.1977778080868,
+        "median": 2102.9449999999997,
+        "p90": 2826.052,
+        "p95": 3020.109,
+        "max": 4513.61
+      },
+      "completion_multi_ms": {
+        "n": 484,
+        "mean": 8831.166115702481,
+        "sd": 2171.0319737994223,
+        "median": 8555.835,
+        "p90": 11888.003,
+        "p95": 12572.326499999997,
+        "max": 19113.94
+      }
+    },
+    "A": {
+      "total_replies": 512,
+      "single_sentence": 28,
+      "multi_sentence": 484,
+      "affected_replies": 1,
+      "gap_events_over_20ms": 1,
+      "pct_of_multi_484": 0.2066115702479339,
+      "pct_of_all_512": 0.1953125,
+      "ttfa_multi_ms": {
+        "n": 484,
+        "mean": 1471.3389049586776,
+        "sd": 540.0644341703444,
+        "median": 1407.125,
+        "p90": 2204.173,
+        "p95": 2467.2664999999997,
+        "max": 3390.41
+      },
+      "ttfa_all_ms": {
+        "n": 512,
+        "mean": 1477.5916210937498,
+        "sd": 533.1881406871149,
+        "median": 1426.895,
+        "p90": 2203.148,
+        "p95": 2455.765,
+        "max": 3390.41
+      },
+      "completion_multi_ms": {
+        "n": 484,
+        "mean": 8124.840227272727,
+        "sd": 2014.9806207855588,
+        "median": 7843.094999999999,
+        "p90": 10900.187,
+        "p95": 11624.189999999999,
+        "max": 17992.41
+      }
+    },
+    "S": {
+      "total_replies": 512,
+      "single_sentence": 28,
+      "multi_sentence": 484,
+      "affected_replies": 69,
+      "gap_events_over_20ms": 69,
+      "pct_of_multi_484": 14.256198347107437,
+      "pct_of_all_512": 13.4765625,
+      "ttfa_multi_ms": {
+        "n": 484,
+        "mean": 969.5734917355372,
+        "sd": 434.01592153247464,
+        "median": 864.5550000000001,
+        "p90": 1633.615,
+        "p95": 1856.6739999999995,
+        "max": 2477.74
+      },
+      "ttfa_all_ms": {
+        "n": 512,
+        "mean": 1003.26650390625,
+        "sd": 453.46931873904714,
+        "median": 890.41,
+        "p90": 1665.613,
+        "p95": 1887.7765,
+        "max": 2477.74
+      },
+      "completion_multi_ms": {
+        "n": 484,
+        "mean": 7671.797396694215,
+        "sd": 1994.6945081262197,
+        "median": 7428.87,
+        "p90": 10402.494999999999,
+        "p95": 11261.051999999998,
+        "max": 15582.89
+      }
+    }
+  },
+  "e1_ryzen_prebuffer_baselines": {
+    "S_buf_0ms": {
+      "pre_buffer_ms": 0,
+      "n_multi": 484,
+      "affected_replies": 69,
+      "pct_multi_484": 14.256198347107437,
+      "pct_all_512": 13.4765625,
+      "gap_events": 69,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 969.5734917355372,
+        "sd": 434.0159215324746,
+        "median": 864.5550000000001,
+        "p90": 1633.615,
+        "p95": 1856.6739999999995,
+        "max": 2477.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 7671.797520661157,
+        "sd": 1994.694660791084,
+        "median": 7428.875,
+        "p90": 10402.495,
+        "p95": 11261.0505,
+        "max": 15582.89
+      }
+    },
+    "S_buf_100ms": {
+      "pre_buffer_ms": 100,
+      "n_multi": 484,
+      "affected_replies": 51,
+      "pct_multi_484": 10.537190082644628,
+      "pct_all_512": 9.9609375,
+      "gap_events": 51,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 1069.5734917355371,
+        "sd": 434.01592153247464,
+        "median": 964.5550000000001,
+        "p90": 1733.615,
+        "p95": 1956.6739999999995,
+        "max": 2577.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 7759.140227272727,
+        "sd": 1997.1253783616644,
+        "median": 7528.875,
+        "p90": 10502.495,
+        "p95": 11361.0505,
+        "max": 15682.89
+      }
+    },
+    "S_buf_200ms": {
+      "pre_buffer_ms": 200,
+      "n_multi": 484,
+      "affected_replies": 42,
+      "pct_multi_484": 8.677685950413224,
+      "pct_all_512": 8.203125,
+      "gap_events": 42,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 1169.5734917355373,
+        "sd": 434.0159215324746,
+        "median": 1064.555,
+        "p90": 1833.615,
+        "p95": 2056.6739999999995,
+        "max": 2677.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 7849.274524793389,
+        "sd": 1998.9826435243958,
+        "median": 7628.875,
+        "p90": 10602.495,
+        "p95": 11453.018,
+        "max": 15782.89
+      }
+    },
+    "S_buf_300ms": {
+      "pre_buffer_ms": 300,
+      "n_multi": 484,
+      "affected_replies": 31,
+      "pct_multi_484": 6.404958677685951,
+      "pct_all_512": 6.0546875,
+      "gap_events": 31,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 1269.5734917355373,
+        "sd": 434.01592153247464,
+        "median": 1164.555,
+        "p90": 1933.615,
+        "p95": 2156.6739999999995,
+        "max": 2777.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 7941.305041322314,
+        "sd": 2000.077154447253,
+        "median": 7709.28,
+        "p90": 10702.495,
+        "p95": 11521.581999999997,
+        "max": 15882.89
+      }
+    },
+    "S_buf_400ms": {
+      "pre_buffer_ms": 400,
+      "n_multi": 484,
+      "affected_replies": 22,
+      "pct_multi_484": 4.545454545454546,
+      "pct_all_512": 4.296875,
+      "gap_events": 22,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 1369.5734917355371,
+        "sd": 434.01592153247464,
+        "median": 1264.555,
+        "p90": 2033.615,
+        "p95": 2256.6739999999995,
+        "max": 2877.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 8035.4249793388435,
+        "sd": 2000.2319605522505,
+        "median": 7806.58,
+        "p90": 10802.495,
+        "p95": 11620.132999999996,
+        "max": 15982.89
+      }
+    },
+    "S_buf_500ms": {
+      "pre_buffer_ms": 500,
+      "n_multi": 484,
+      "affected_replies": 18,
+      "pct_multi_484": 3.71900826446281,
+      "pct_all_512": 3.515625,
+      "gap_events": 18,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 1469.5734917355373,
+        "sd": 434.0159215324746,
+        "median": 1364.555,
+        "p90": 2133.615,
+        "p95": 2356.6739999999995,
+        "max": 2977.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 8131.133388429752,
+        "sd": 1999.847100327598,
+        "median": 7906.58,
+        "p90": 10902.495,
+        "p95": 11720.132999999996,
+        "max": 16082.89
+      }
+    },
+    "S_buf_600ms": {
+      "pre_buffer_ms": 600,
+      "n_multi": 484,
+      "affected_replies": 12,
+      "pct_multi_484": 2.479338842975207,
+      "pct_all_512": 2.34375,
+      "gap_events": 12,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 1569.5734917355371,
+        "sd": 434.01592153247464,
+        "median": 1464.555,
+        "p90": 2233.615,
+        "p95": 2456.6739999999995,
+        "max": 3077.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 8227.943202479339,
+        "sd": 1998.9765329577558,
+        "median": 8006.58,
+        "p90": 11002.495,
+        "p95": 11820.132999999996,
+        "max": 16182.89
+      }
+    },
+    "S_buf_800ms": {
+      "pre_buffer_ms": 800,
+      "n_multi": 484,
+      "affected_replies": 4,
+      "pct_multi_484": 0.8264462809917356,
+      "pct_all_512": 0.78125,
+      "gap_events": 4,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 1769.5734917355373,
+        "sd": 434.0159215324746,
+        "median": 1664.555,
+        "p90": 2433.615,
+        "p95": 2656.6739999999995,
+        "max": 3277.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 8424.232045454546,
+        "sd": 1997.1966439040716,
+        "median": 8206.58,
+        "p90": 11202.495,
+        "p95": 12020.132999999996,
+        "max": 16382.89
+      }
+    },
+    "S_buf_1000ms": {
+      "pre_buffer_ms": 1000,
+      "n_multi": 484,
+      "affected_replies": 2,
+      "pct_multi_484": 0.4132231404958678,
+      "pct_all_512": 0.390625,
+      "gap_events": 2,
+      "ttfa_ms": {
+        "n": 484,
+        "mean": 1969.5734917355373,
+        "sd": 434.0159215324746,
+        "median": 1864.555,
+        "p90": 2633.615,
+        "p95": 2856.6739999999995,
+        "max": 3477.74
+      },
+      "completion_ms": {
+        "n": 484,
+        "mean": 8622.939814049587,
+        "sd": 1996.0860293944893,
+        "median": 8406.58,
+        "p90": 11402.495,
+        "p95": 12220.132999999996,
+        "max": 16582.89
+      }
+    }
+  },
+  "e1_ryzen_lmin_cached_subset": {
+    "L_min_40": {
+      "lmin_chars": 40,
+      "matched_in_ryzen_cache": 477,
+      "uncached_count": 7,
+      "uncached_rids": [
+        "ceiling1|A|097",
+        "ceiling1|B|169",
+        "ceiling1|C|177",
+        "ceiling1|C|181",
+        "run1|A|097",
+        "run1|B|041",
+        "run1|C|049"
+      ],
+      "affected_replies_cached": 0,
+      "pct_cached": 0.0,
+      "ttfa_ms": {
+        "n": 477,
+        "mean": 1428.7004192872118,
+        "sd": 467.60624128657645,
+        "median": 1390.46,
+        "p90": 2063.3540000000003,
+        "p95": 2211.394,
+        "max": 2949.01
+      },
+      "completion_ms": {
+        "n": 477,
+        "mean": 8078.759517819706,
+        "sd": 1885.0930676897833,
+        "median": 7799.66,
+        "p90": 10704.962,
+        "p95": 11372.344,
+        "max": 15582.89
+      }
+    },
+    "L_min_60": {
+      "lmin_chars": 60,
+      "matched_in_ryzen_cache": 475,
+      "uncached_count": 9,
+      "uncached_rids": [
+        "ceiling1|B|078",
+        "ceiling1|B|169",
+        "ceiling1|C|148",
+        "ceiling1|C|181",
+        "run1|A|166",
+        "run1|B|041",
+        "run1|C|049",
+        "run1|C|056",
+        "run1|C|213"
+      ],
+      "affected_replies_cached": 0,
+      "pct_cached": 0.0,
+      "ttfa_ms": {
+        "n": 475,
+        "mean": 1753.6563157894734,
+        "sd": 426.22961881128083,
+        "median": 1730.72,
+        "p90": 2289.646,
+        "p95": 2484.2079999999987,
+        "max": 3390.41
+      },
+      "completion_ms": {
+        "n": 475,
+        "mean": 8394.425894736842,
+        "sd": 1878.5652649699655,
+        "median": 8304.220000000001,
+        "p90": 10924.298,
+        "p95": 11633.043999999998,
+        "max": 17992.41
+      }
+    },
+    "L_min_80": {
+      "lmin_chars": 80,
+      "matched_in_ryzen_cache": 476,
+      "uncached_count": 8,
+      "uncached_rids": [
+        "ceiling1|B|078",
+        "ceiling1|B|169",
+        "ceiling1|C|148",
+        "run1|A|166",
+        "run1|B|041",
+        "run1|C|049",
+        "run1|C|056",
+        "run1|C|213"
+      ],
+      "affected_replies_cached": 0,
+      "pct_cached": 0.0,
+      "ttfa_ms": {
+        "n": 476,
+        "mean": 1913.4806512605044,
+        "sd": 390.40128502619103,
+        "median": 1874.955,
+        "p90": 2429.99,
+        "p95": 2657.2574999999997,
+        "max": 3390.41
+      },
+      "completion_ms": {
+        "n": 476,
+        "mean": 8552.902478991597,
+        "sd": 1903.7904861009729,
+        "median": 8434.545,
+        "p90": 11026.3,
+        "p95": 11788.03,
+        "max": 17992.41
+      }
+    },
+    "L_min_100": {
+      "lmin_chars": 100,
+      "matched_in_ryzen_cache": 480,
+      "uncached_count": 4,
+      "uncached_rids": [
+        "ceiling1|B|078",
+        "ceiling1|C|148",
+        "run1|C|056",
+        "run1|C|213"
+      ],
+      "affected_replies_cached": 0,
+      "pct_cached": 0.0,
+      "ttfa_ms": {
+        "n": 480,
+        "mean": 2042.6712083333332,
+        "sd": 399.40711722760403,
+        "median": 1992.3,
+        "p90": 2628.947,
+        "p95": 2805.896,
+        "max": 3390.41
+      },
+      "completion_ms": {
+        "n": 480,
+        "mean": 8682.719041666667,
+        "sd": 1985.7463604624043,
+        "median": 8528.8,
+        "p90": 11362.011000000002,
+        "p95": 11987.934,
+        "max": 17992.41
+      }
+    },
+    "L_min_120": {
+      "lmin_chars": 120,
+      "matched_in_ryzen_cache": 483,
+      "uncached_count": 1,
+      "uncached_rids": [
+        "run1|C|213"
+      ],
+      "affected_replies_cached": 0,
+      "pct_cached": 0.0,
+      "ttfa_ms": {
+        "n": 483,
+        "mean": 2149.520910973085,
+        "sd": 453.30611226293433,
+        "median": 2107.67,
+        "p90": 2800.352,
+        "p95": 2973.0769999999993,
+        "max": 3850.41
+      },
+      "completion_ms": {
+        "n": 483,
+        "mean": 8797.13370600414,
+        "sd": 2119.0014264422884,
+        "median": 8555.619999999999,
+        "p90": 11761.366,
+        "p95": 12366.035,
+        "max": 17992.41
+      }
+    }
+  },
+  "e1_long_reply_breakdown": {
+    "cyclic_64_no_cross_seam": {
+      "label": "64 cyclic pairs (each source reply appears once as prefix and once as suffix, 0 self-pairs)",
+      "n_pairs": 64,
+      "source_replies": 64,
+      "sentence_count_dist": {
+        "6": 62,
+        "7": 2
+      },
+      "chars": {
+        "n": 64,
+        "mean": 262.9375,
+        "sd": 42.991647398439454,
+        "median": 261.0,
+        "p90": 307.20000000000005,
+        "p95": 337.14999999999986,
+        "max": 421.0
+      },
+      "W_ttfa_ms": {
+        "n": 64,
+        "mean": 4915.0803125,
+        "sd": 693.4945996241335,
+        "median": 4770.26,
+        "p90": 5640.779,
+        "p95": 6057.2935,
+        "max": 7513.76
+      },
+      "A_ttfa_ms": {
+        "n": 64,
+        "mean": 1517.55390625,
+        "sd": 545.3627301560213,
+        "median": 1467.345,
+        "p90": 2189.744,
+        "p95": 2361.3269999999993,
+        "max": 3390.41
+      },
+      "S_ttfa_ms": {
+        "n": 64,
+        "mean": 536.108125,
+        "sd": 153.86908239494863,
+        "median": 464.46,
+        "p90": 792.1660000000002,
+        "p95": 916.8064999999998,
+        "max": 980.14
+      },
+      "A_affected_replies": 1,
+      "A_affected_pct": 1.5625,
+      "S_affected_replies": 23,
+      "S_affected_pct": 35.9375
+    },
+    "disjoint_32_no_cross_seam": {
+      "label": "32 disjoint non-overlapping pairs",
+      "n_pairs": 32,
+      "source_replies": 64,
+      "sentence_count_dist": {
+        "6": 31,
+        "7": 1
+      },
+      "chars": {
+        "n": 32,
+        "mean": 262.9375,
+        "sd": 42.55617729315512,
+        "median": 252.5,
+        "p90": 311.1,
+        "p95": 329.55,
+        "max": 421.0
+      },
+      "W_ttfa_ms": {
+        "n": 32,
+        "mean": 4915.0803125,
+        "sd": 664.5449508157726,
+        "median": 4749.755,
+        "p90": 5567.951000000001,
+        "p95": 6089.5824999999995,
+        "max": 7489.039999999999
+      },
+      "A_ttfa_ms": {
+        "n": 32,
+        "mean": 1554.511875,
+        "sd": 640.3861222047992,
+        "median": 1462.2,
+        "p90": 2250.993,
+        "p95": 2735.2149999999997,
+        "max": 3390.41
+      },
+      "S_ttfa_ms": {
+        "n": 32,
+        "mean": 568.270625,
+        "sd": 179.10872358462302,
+        "median": 476.66499999999996,
+        "p90": 879.3880000000001,
+        "p95": 943.95,
+        "max": 980.14
+      },
+      "A_affected_replies": 0,
+      "A_affected_pct": 0.0,
+      "S_affected_replies": 10,
+      "S_affected_pct": 31.25
+    }
+  },
+  "e2_transcription_reconciliation": {
+    "raw": {
+      "conditions": {
+        "C1": {
+          "exact_matches": 54,
+          "total": 64,
+          "exact_pct": 84.375,
+          "ref_words": 474,
+          "substitutions": 10,
+          "deletions": 3,
+          "insertions": 3,
+          "total_word_errors": 16,
+          "wer_pct": 3.3755274261603376
+        },
+        "C2": {
+          "exact_matches": 45,
+          "total": 64,
+          "exact_pct": 70.3125,
+          "ref_words": 474,
+          "substitutions": 19,
+          "deletions": 6,
+          "insertions": 3,
+          "total_word_errors": 28,
+          "wer_pct": 5.9071729957805905
+        },
+        "C3": {
+          "exact_matches": 49,
+          "total": 64,
+          "exact_pct": 76.5625,
+          "ref_words": 474,
+          "substitutions": 15,
+          "deletions": 5,
+          "insertions": 1,
+          "total_word_errors": 21,
+          "wer_pct": 4.430379746835443
+        }
+      },
+      "mcnemar_2x2": {
+        "C1_vs_C2": {
+          "n11_both_exact": 45,
+          "n10_only_first_exact": 9,
+          "n01_only_second_exact": 0,
+          "n00_neither_exact": 10,
+          "n10_uids": [
+            "u03",
+            "u15",
+            "u17",
+            "u20",
+            "u39",
+            "u42",
+            "u45",
+            "u55",
+            "u57"
+          ],
+          "n01_uids": [],
+          "n00_uids": [
+            "u00",
+            "u05",
+            "u07",
+            "u12",
+            "u29",
+            "u30",
+            "u34",
+            "u37",
+            "u38",
+            "u50"
+          ],
+          "exact_binomial_p": 0.00390625
+        },
+        "C1_vs_C3": {
+          "n11_both_exact": 47,
+          "n10_only_first_exact": 7,
+          "n01_only_second_exact": 2,
+          "n00_neither_exact": 8,
+          "n10_uids": [
+            "u03",
+            "u15",
+            "u20",
+            "u42",
+            "u45",
+            "u55",
+            "u57"
+          ],
+          "n01_uids": [
+            "u12",
+            "u34"
+          ],
+          "n00_uids": [
+            "u00",
+            "u05",
+            "u07",
+            "u29",
+            "u30",
+            "u37",
+            "u38",
+            "u50"
+          ],
+          "exact_binomial_p": 0.1796875
+        },
+        "C2_vs_C3": {
+          "n11_both_exact": 45,
+          "n10_only_first_exact": 0,
+          "n01_only_second_exact": 4,
+          "n00_neither_exact": 15,
+          "n10_uids": [],
+          "n01_uids": [
+            "u12",
+            "u17",
+            "u34",
+            "u39"
+          ],
+          "n00_uids": [
+            "u00",
+            "u03",
+            "u05",
+            "u07",
+            "u15",
+            "u20",
+            "u29",
+            "u30",
+            "u37",
+            "u38",
+            "u42",
+            "u45",
+            "u50",
+            "u55",
+            "u57"
+          ],
+          "exact_binomial_p": 0.125
+        }
+      }
+    },
+    "canonical": {
+      "conditions": {
+        "C1": {
+          "exact_matches": 63,
+          "total": 64,
+          "exact_pct": 98.4375,
+          "ref_words": 473,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 1,
+          "total_word_errors": 2,
+          "wer_pct": 0.42283298097251587
+        },
+        "C2": {
+          "exact_matches": 57,
+          "total": 64,
+          "exact_pct": 89.0625,
+          "ref_words": 473,
+          "substitutions": 6,
+          "deletions": 1,
+          "insertions": 0,
+          "total_word_errors": 7,
+          "wer_pct": 1.4799154334038056
+        },
+        "C3": {
+          "exact_matches": 58,
+          "total": 64,
+          "exact_pct": 90.625,
+          "ref_words": 473,
+          "substitutions": 5,
+          "deletions": 1,
+          "insertions": 0,
+          "total_word_errors": 6,
+          "wer_pct": 1.2684989429175475
+        }
+      },
+      "mcnemar_2x2": {
+        "C1_vs_C2": {
+          "n11_both_exact": 57,
+          "n10_only_first_exact": 6,
+          "n01_only_second_exact": 0,
+          "n00_neither_exact": 1,
+          "n10_uids": [
+            "u03",
+            "u05",
+            "u42",
+            "u45",
+            "u55",
+            "u57"
+          ],
+          "n01_uids": [],
+          "n00_uids": [
+            "u37"
+          ],
+          "exact_binomial_p": 0.03125
+        },
+        "C1_vs_C3": {
+          "n11_both_exact": 58,
+          "n10_only_first_exact": 5,
+          "n01_only_second_exact": 0,
+          "n00_neither_exact": 1,
+          "n10_uids": [
+            "u03",
+            "u05",
+            "u45",
+            "u55",
+            "u57"
+          ],
+          "n01_uids": [],
+          "n00_uids": [
+            "u37"
+          ],
+          "exact_binomial_p": 0.0625
+        },
+        "C2_vs_C3": {
+          "n11_both_exact": 57,
+          "n10_only_first_exact": 0,
+          "n01_only_second_exact": 1,
+          "n00_neither_exact": 6,
+          "n10_uids": [],
+          "n01_uids": [
+            "u42"
+          ],
+          "n00_uids": [
+            "u03",
+            "u05",
+            "u37",
+            "u45",
+            "u55",
+            "u57"
+          ],
+          "exact_binomial_p": 1.0
+        }
+      }
+    },
+    "utterance_diff_inventory": [
+      {
+        "uid": "u00",
+        "scenario": "AirportCustoms",
+        "utterance": "I am carrying about five hundred dollars in cash.",
+        "conditions": {
+          "C1": {
+            "transcript": "I am carrying about $500 in cash",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "98"
+          },
+          "C2": {
+            "transcript": "I am carrying about $500 in cash",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "98"
+          },
+          "C3": {
+            "transcript": "I am carrying about $500 in cash",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "92"
+          }
+        }
+      },
+      {
+        "uid": "u03",
+        "scenario": "AirportCustoms",
+        "utterance": "Did the officer before you already check this?",
+        "conditions": {
+          "C1": {
+            "transcript": "did the officer before you already check this",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "88"
+          },
+          "C2": {
+            "transcript": "to the officer before you already check this",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "68"
+          },
+          "C3": {
+            "transcript": "to the officer before you already check this",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "50"
+          }
+        }
+      },
+      {
+        "uid": "u05",
+        "scenario": "AirportCustoms",
+        "utterance": "I bring about five hundred dollar cash with me.",
+        "conditions": {
+          "C1": {
+            "transcript": "I bring about 500 dollar cash with me",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "72"
+          },
+          "C2": {
+            "transcript": "I bring about $500 cash with me.",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "82"
+          },
+          "C3": {
+            "transcript": "I bring about $500 cash with me",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "88"
+          }
+        }
+      },
+      {
+        "uid": "u07",
+        "scenario": "AirportCustoms",
+        "utterance": "I come here for the tourism about ten day.",
+        "conditions": {
+          "C1": {
+            "transcript": "I come here for the tourism about 10 day",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "68"
+          },
+          "C2": {
+            "transcript": "I come here for the tourism about 10 day",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "64"
+          },
+          "C3": {
+            "transcript": "I come here for the tourism about 10 day",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "64"
+          }
+        }
+      },
+      {
+        "uid": "u12",
+        "scenario": "CafeRestaurant",
+        "utterance": "I will taking it for takeout.",
+        "conditions": {
+          "C1": {
+            "transcript": "I will taking it for take out",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "72"
+          },
+          "C2": {
+            "transcript": "I will taking it for take out",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "70"
+          },
+          "C3": {
+            "transcript": "I will taking it for takeout.",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "72"
+          }
+        }
+      },
+      {
+        "uid": "u15",
+        "scenario": "CafeRestaurant",
+        "utterance": "Could you make that for takeout, please?",
+        "conditions": {
+          "C1": {
+            "transcript": "Could you make that for takeout, please?",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "98"
+          },
+          "C2": {
+            "transcript": "Could you make that for take out, please?",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "98"
+          },
+          "C3": {
+            "transcript": "Could you make that for take out, please?",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "98"
+          }
+        }
+      },
+      {
+        "uid": "u17",
+        "scenario": "DoctorPharmacy",
+        "utterance": "Three days",
+        "conditions": {
+          "C1": {
+            "transcript": "Three days",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "50"
+          },
+          "C2": {
+            "transcript": "3 days",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "40"
+          },
+          "C3": {
+            "transcript": "Three days",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "40"
+          }
+        }
+      },
+      {
+        "uid": "u20",
+        "scenario": "DoctorPharmacy",
+        "utterance": "I have sore throat since three day already.",
+        "conditions": {
+          "C1": {
+            "transcript": "I have sore throat since three day already",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "68"
+          },
+          "C2": {
+            "transcript": "I have sore throat since 3 day already",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "68"
+          },
+          "C3": {
+            "transcript": "I have sore throat since 3 day already",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "64"
+          }
+        }
+      },
+      {
+        "uid": "u29",
+        "scenario": "FreeTalk",
+        "utterance": "I try to practise the speaking English in every evening.",
+        "conditions": {
+          "C1": {
+            "transcript": "I try to practice the speaking English in every evening",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "76"
+          },
+          "C2": {
+            "transcript": "I try to practice the speaking English in every evening",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "76"
+          },
+          "C3": {
+            "transcript": "I try to practice the speaking English in every evening",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "76"
+          }
+        }
+      },
+      {
+        "uid": "u30",
+        "scenario": "FreeTalk",
+        "utterance": "My favourite way to relax is cooking something simple.",
+        "conditions": {
+          "C1": {
+            "transcript": "My favorite way to relax is cooking something simple.",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "98"
+          },
+          "C2": {
+            "transcript": "My favorite way to relax is cooking something simple.",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "100"
+          },
+          "C3": {
+            "transcript": "My favorite way to relax is cooking something simple",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "98"
+          }
+        }
+      },
+      {
+        "uid": "u34",
+        "scenario": "HotelCheckIn",
+        "utterance": "Wifi",
+        "conditions": {
+          "C1": {
+            "transcript": "Wi-Fi",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "40"
+          },
+          "C2": {
+            "transcript": "Wi-Fi",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "40"
+          },
+          "C3": {
+            "transcript": "WiFi",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "40"
+          }
+        }
+      },
+      {
+        "uid": "u37",
+        "scenario": "HotelCheckIn",
+        "utterance": "I have a reservate under my name.",
+        "conditions": {
+          "C1": {
+            "transcript": "I have a reserve ate under my name",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "72"
+          },
+          "C2": {
+            "transcript": "I have a reservation under my name.",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "85"
+          },
+          "C3": {
+            "transcript": "I have a reservation under my name.",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "98"
+          }
+        }
+      },
+      {
+        "uid": "u38",
+        "scenario": "HotelCheckIn",
+        "utterance": "Is there a fitness centre in the hotel?",
+        "conditions": {
+          "C1": {
+            "transcript": "Is there a fitness center in the hotel?",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "98"
+          },
+          "C2": {
+            "transcript": "Is there a fitness center in the hotel",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "98"
+          },
+          "C3": {
+            "transcript": "Is there a fitness center in the hotel",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "95"
+          }
+        }
+      },
+      {
+        "uid": "u39",
+        "scenario": "HotelCheckIn",
+        "utterance": "Did my key card work when I tried it?",
+        "conditions": {
+          "C1": {
+            "transcript": "Did my key card work when I tried it?",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "98"
+          },
+          "C2": {
+            "transcript": "Did my keycard work when I tried it",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "88"
+          },
+          "C3": {
+            "transcript": "Did my key card work when I tried it?",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "98"
+          }
+        }
+      },
+      {
+        "uid": "u42",
+        "scenario": "JobInterview",
+        "utterance": "I graduate in information technology since two years.",
+        "conditions": {
+          "C1": {
+            "transcript": "I graduate in information technology since two years",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "68"
+          },
+          "C2": {
+            "transcript": "I graduated in information technology since two years",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "76"
+          },
+          "C3": {
+            "transcript": "I graduate in information technology since 2 years",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "72"
+          }
+        }
+      },
+      {
+        "uid": "u45",
+        "scenario": "JobInterview",
+        "utterance": "I have experience about three year in this field.",
+        "conditions": {
+          "C1": {
+            "transcript": "I have experience about three year in this field",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "72"
+          },
+          "C2": {
+            "transcript": "I have experience about 3 years in this field",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "76"
+          },
+          "C3": {
+            "transcript": "I have experience about 3 years in this field",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "76"
+          }
+        }
+      },
+      {
+        "uid": "u50",
+        "scenario": "ShoppingStore",
+        "utterance": "Do you have this shirt in a darker colour?",
+        "conditions": {
+          "C1": {
+            "transcript": "Do you have this shirt in a darker color?",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "100"
+          },
+          "C2": {
+            "transcript": "Do you have this shirt in a darker color?",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "100"
+          },
+          "C3": {
+            "transcript": "Do you have this shirt in a darker color?",
+            "raw_exact": false,
+            "canon_exact": true,
+            "score": "100"
+          }
+        }
+      },
+      {
+        "uid": "u55",
+        "scenario": "ShoppingStore",
+        "utterance": "Card",
+        "conditions": {
+          "C1": {
+            "transcript": "card",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "40"
+          },
+          "C2": {
+            "transcript": "Cardi",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "40"
+          },
+          "C3": {
+            "transcript": "Carter",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "40"
+          }
+        }
+      },
+      {
+        "uid": "u57",
+        "scenario": "TaxiDirections",
+        "utterance": "You are accept the card payment?",
+        "conditions": {
+          "C1": {
+            "transcript": "You are accept the card payment?",
+            "raw_exact": true,
+            "canon_exact": true,
+            "score": "72"
+          },
+          "C2": {
+            "transcript": "You accept the card payment",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "72"
+          },
+          "C3": {
+            "transcript": "You accept the card payment",
+            "raw_exact": false,
+            "canon_exact": false,
+            "score": "76"
+          }
+        }
+      }
+    ]
+  }
+}

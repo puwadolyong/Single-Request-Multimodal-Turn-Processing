@@ -1,0 +1,526 @@
+{
+  "totalTurns": 512,
+  "strataCounts": {
+    "ALL": {
+      "total": 512,
+      "raw_has_correction": 284,
+      "raw_has_quests": 149,
+      "raw_perfect": 198,
+      "r1_score_clamp_over_corr": 0,
+      "r2_fragment_score_capped": 0,
+      "r2_fragment_perfect_stripped": 0,
+      "r3_objective_credit_cleared": 8,
+      "r3_cleared_due_score_only": 0,
+      "r3_cleared_due_length_only": 7,
+      "r3_cleared_due_both": 1,
+      "r4_unanchored_correction_dropped": 6,
+      "final_has_correction": 278,
+      "final_has_quests": 141,
+      "non_ascii_reply_chars": 0
+    },
+    "A": {
+      "total": 128,
+      "raw_has_correction": 6,
+      "raw_has_quests": 71,
+      "raw_perfect": 118,
+      "r1_score_clamp_over_corr": 0,
+      "r2_fragment_score_capped": 0,
+      "r2_fragment_perfect_stripped": 0,
+      "r3_objective_credit_cleared": 0,
+      "r3_cleared_due_score_only": 0,
+      "r3_cleared_due_length_only": 0,
+      "r3_cleared_due_both": 0,
+      "r4_unanchored_correction_dropped": 1,
+      "final_has_correction": 5,
+      "final_has_quests": 71,
+      "non_ascii_reply_chars": 0
+    },
+    "B": {
+      "total": 128,
+      "raw_has_correction": 123,
+      "raw_has_quests": 66,
+      "raw_perfect": 4,
+      "r1_score_clamp_over_corr": 0,
+      "r2_fragment_score_capped": 0,
+      "r2_fragment_perfect_stripped": 0,
+      "r3_objective_credit_cleared": 0,
+      "r3_cleared_due_score_only": 0,
+      "r3_cleared_due_length_only": 0,
+      "r3_cleared_due_both": 0,
+      "r4_unanchored_correction_dropped": 0,
+      "final_has_correction": 123,
+      "final_has_quests": 66,
+      "non_ascii_reply_chars": 0
+    },
+    "C": {
+      "total": 128,
+      "raw_has_correction": 128,
+      "raw_has_quests": 8,
+      "raw_perfect": 0,
+      "r1_score_clamp_over_corr": 0,
+      "r2_fragment_score_capped": 0,
+      "r2_fragment_perfect_stripped": 0,
+      "r3_objective_credit_cleared": 8,
+      "r3_cleared_due_score_only": 0,
+      "r3_cleared_due_length_only": 7,
+      "r3_cleared_due_both": 1,
+      "r4_unanchored_correction_dropped": 0,
+      "final_has_correction": 128,
+      "final_has_quests": 0,
+      "non_ascii_reply_chars": 0
+    },
+    "D": {
+      "total": 128,
+      "raw_has_correction": 27,
+      "raw_has_quests": 4,
+      "raw_perfect": 76,
+      "r1_score_clamp_over_corr": 0,
+      "r2_fragment_score_capped": 0,
+      "r2_fragment_perfect_stripped": 0,
+      "r3_objective_credit_cleared": 0,
+      "r3_cleared_due_score_only": 0,
+      "r3_cleared_due_length_only": 0,
+      "r3_cleared_due_both": 0,
+      "r4_unanchored_correction_dropped": 5,
+      "final_has_correction": 22,
+      "final_has_quests": 4,
+      "non_ascii_reply_chars": 0
+    }
+  },
+  "triggeredEvents": [
+    {
+      "run": "run1|C",
+      "stratum": "C",
+      "turn": 22,
+      "scenario": "CafeRestaurant",
+      "utterance": "Recommend",
+      "wordCount": 1,
+      "isFragment": true,
+      "isSubstantial": false,
+      "rawScore": 50,
+      "finalScore": 50,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [
+        2
+      ],
+      "finalQuests": [],
+      "rawCorrection": "Original: Recommend -> Corrected: Could you recommend something?",
+      "finalCorrection": "Original: Recommend -> Corrected: Could you recommend something?",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": true,
+        "r4CorrDrop": false
+      }
+    },
+    {
+      "run": "run1|D",
+      "stratum": "D",
+      "turn": 25,
+      "scenario": "CafeRestaurant",
+      "utterance": "What was the total for my order?",
+      "wordCount": 7,
+      "isFragment": false,
+      "isSubstantial": true,
+      "rawScore": 50,
+      "finalScore": 50,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [],
+      "finalQuests": [],
+      "rawCorrection": "Original: What was the total for my order? -> Corrected: You haven't ordered anything yet - what can I get you?",
+      "finalCorrection": "",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": false,
+        "r4CorrDrop": true
+      }
+    },
+    {
+      "run": "run1|A",
+      "stratum": "A",
+      "turn": 68,
+      "scenario": "AirportCustoms",
+      "utterance": "I have nothing to declare, only personal belongings.",
+      "wordCount": 8,
+      "isFragment": false,
+      "isSubstantial": true,
+      "rawScore": 72,
+      "finalScore": 72,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [],
+      "finalQuests": [],
+      "rawCorrection": "Original: I have nothing to declare, only personal belongings. -> Corrected: Yes, I have my return ticket right here. / Yes, I have a return flight booked for the tenth of this month.",
+      "finalCorrection": "",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": false,
+        "r4CorrDrop": true
+      }
+    },
+    {
+      "run": "run1|C",
+      "stratum": "C",
+      "turn": 81,
+      "scenario": "AirportCustoms",
+      "utterance": "Tourism",
+      "wordCount": 1,
+      "isFragment": true,
+      "isSubstantial": false,
+      "rawScore": 50,
+      "finalScore": 50,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [
+        1
+      ],
+      "finalQuests": [],
+      "rawCorrection": "Original: Tourism -> Corrected: I am here for tourism.",
+      "finalCorrection": "Original: Tourism -> Corrected: I am here for tourism.",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": true,
+        "r4CorrDrop": false
+      }
+    },
+    {
+      "run": "run1|D",
+      "stratum": "D",
+      "turn": 123,
+      "scenario": "JobInterview",
+      "utterance": "What salary did you decide to offer me?",
+      "wordCount": 8,
+      "isFragment": false,
+      "isSubstantial": true,
+      "rawScore": 55,
+      "finalScore": 55,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [],
+      "finalQuests": [],
+      "rawCorrection": "Original: What salary did you decide to offer me? -> Corrected: What is the salary range for this position?",
+      "finalCorrection": "",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": false,
+        "r4CorrDrop": true
+      }
+    },
+    {
+      "run": "run1|D",
+      "stratum": "D",
+      "turn": 126,
+      "scenario": "JobInterview",
+      "utterance": "When did you say the second interview would be?",
+      "wordCount": 9,
+      "isFragment": false,
+      "isSubstantial": true,
+      "rawScore": 55,
+      "finalScore": 55,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [],
+      "finalQuests": [],
+      "rawCorrection": "Original: When did you say the second interview would be? -> Corrected: We haven't scheduled a second interview yet, as we are still on the first step.",
+      "finalCorrection": "",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": false,
+        "r4CorrDrop": true
+      }
+    },
+    {
+      "run": "run1|C",
+      "stratum": "C",
+      "turn": 181,
+      "scenario": "TaxiDirections",
+      "utterance": "Turn left",
+      "wordCount": 2,
+      "isFragment": false,
+      "isSubstantial": false,
+      "rawScore": 55,
+      "finalScore": 55,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [
+        3
+      ],
+      "finalQuests": [],
+      "rawCorrection": "Original: Turn left -> Corrected: Please turn left here.",
+      "finalCorrection": "Original: Turn left -> Corrected: Please turn left here.",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": true,
+        "r4CorrDrop": false
+      }
+    },
+    {
+      "run": "run1|C",
+      "stratum": "C",
+      "turn": 182,
+      "scenario": "TaxiDirections",
+      "utterance": "Stop here",
+      "wordCount": 2,
+      "isFragment": false,
+      "isSubstantial": false,
+      "rawScore": 55,
+      "finalScore": 55,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [
+        3
+      ],
+      "finalQuests": [],
+      "rawCorrection": "Original: Stop here -> Corrected: Please stop here.",
+      "finalCorrection": "Original: Stop here -> Corrected: Please stop here.",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": true,
+        "r4CorrDrop": false
+      }
+    },
+    {
+      "run": "run1|C",
+      "stratum": "C",
+      "turn": 213,
+      "scenario": "DoctorPharmacy",
+      "utterance": "No allergy",
+      "wordCount": 2,
+      "isFragment": true,
+      "isSubstantial": false,
+      "rawScore": 55,
+      "finalScore": 55,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [
+        2
+      ],
+      "finalQuests": [],
+      "rawCorrection": "Original: No allergy -> Corrected: I do not have any drug allergies.",
+      "finalCorrection": "Original: No allergy -> Corrected: I do not have any drug allergies.",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": true,
+        "r4CorrDrop": false
+      }
+    },
+    {
+      "run": "run1|C",
+      "stratum": "C",
+      "turn": 216,
+      "scenario": "DoctorPharmacy",
+      "utterance": "After meal",
+      "wordCount": 2,
+      "isFragment": true,
+      "isSubstantial": false,
+      "rawScore": 50,
+      "finalScore": 50,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [
+        3
+      ],
+      "finalQuests": [],
+      "rawCorrection": "Original: After meal -> Corrected: Should I take them after meals?",
+      "finalCorrection": "Original: After meal -> Corrected: Should I take them after meals?",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": true,
+        "r4CorrDrop": false
+      }
+    },
+    {
+      "run": "run1|D",
+      "stratum": "D",
+      "turn": 221,
+      "scenario": "DoctorPharmacy",
+      "utterance": "How much did the prescription cost?",
+      "wordCount": 6,
+      "isFragment": false,
+      "isSubstantial": true,
+      "rawScore": 55,
+      "finalScore": 55,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [],
+      "finalQuests": [],
+      "rawCorrection": "Original: How much did the prescription cost? -> Corrected: We have not discussed any prescriptions yet. Could you tell me what symptoms you have?",
+      "finalCorrection": "",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": false,
+        "r4CorrDrop": true
+      }
+    },
+    {
+      "run": "run1|D",
+      "stratum": "D",
+      "turn": 224,
+      "scenario": "DoctorPharmacy",
+      "utterance": "What did the previous doctor write in my file?",
+      "wordCount": 9,
+      "isFragment": false,
+      "isSubstantial": true,
+      "rawScore": 55,
+      "finalScore": 55,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [],
+      "finalQuests": [],
+      "rawCorrection": "Original: (No symptoms described) -> Corrected: I have a bad cough and a fever that started two days ago.",
+      "finalCorrection": "",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": false,
+        "r4CorrDrop": true
+      }
+    },
+    {
+      "run": "ceiling1|C",
+      "stratum": "C",
+      "turn": 182,
+      "scenario": "TaxiDirections",
+      "utterance": "Stop here",
+      "wordCount": 2,
+      "isFragment": false,
+      "isSubstantial": false,
+      "rawScore": 50,
+      "finalScore": 50,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [
+        3
+      ],
+      "finalQuests": [],
+      "rawCorrection": "Original: Stop here -> Corrected: Please drop me off here.",
+      "finalCorrection": "Original: Stop here -> Corrected: Please drop me off here.",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": true,
+        "r4CorrDrop": false
+      }
+    },
+    {
+      "run": "ceiling1|C",
+      "stratum": "C",
+      "turn": 213,
+      "scenario": "DoctorPharmacy",
+      "utterance": "No allergy",
+      "wordCount": 2,
+      "isFragment": true,
+      "isSubstantial": false,
+      "rawScore": 40,
+      "finalScore": 40,
+      "rawStatus": "NEEDS_FIX",
+      "finalStatus": "NEEDS_FIX",
+      "rawQuests": [
+        2
+      ],
+      "finalQuests": [],
+      "rawCorrection": "Original: No allergy -> Corrected: I do not have any drug allergies.",
+      "finalCorrection": "Original: No allergy -> Corrected: I do not have any drug allergies.",
+      "rules": {
+        "r1ScoreClamp": false,
+        "r2FragCap": false,
+        "r3QuestDrop": true,
+        "r4CorrDrop": false
+      }
+    }
+  ],
+  "fallbackContractSuite": {
+    "total": 15,
+    "passed": 13,
+    "failed": 2,
+    "cases": [
+      {
+        "name": "NullPayload_SafeEmpty",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "EmptyPayload_SafeEmpty",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "TruncatedJson_DoesNotThrow_NoJsonLeak",
+        "passed": false,
+        "error": null
+      },
+      {
+        "name": "CodeFencedJson_StripsFenceAndParses",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "ApiErrorJsonObject_NotMisreadAsTurn",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "MissingReplyJson_FallsThroughSafely",
+        "passed": false,
+        "error": null
+      },
+      {
+        "name": "LegacyTaggedFull_ParsesAllBlocks",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "LegacyUnclosedFeedbackBlock_StripsFeedback",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "LegacyUnclosedSpokenBlock_StillSpeaksDialogue",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "LegacyQuestSharedPolicy_Over4Words_Retained",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "FragmentHighScoreOverrule_Painkiller100_Capped55",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "ShortContractionExemptFromFragmentCap",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "ShortImperativeExemptFromFragmentCap",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "CorrectedSentenceOver90_ClampedTo89",
+        "passed": true,
+        "error": null
+      },
+      {
+        "name": "OutOfRangeQuestId_Stripped",
+        "passed": true,
+        "error": null
+      }
+    ]
+  }
+}

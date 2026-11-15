@@ -1,0 +1,16 @@
+{
+  "propertyOrdering": [
+    "transcription",
+    "score",
+    "status",
+    "correction",
+    "pronunciation",
+    "tip",
+    "tipThai",
+    "betterPhrasing",
+    "reply",
+    "emotion",
+    "emotionIntensity",
+    "questsCompleted"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "properties": {
+    "transcription": {
+      "type": "string"
+    },
+    "score": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PERFECT",
+        "GOOD",
+        "NEEDS_FIX"
+      ]
+    },
+    "correction": {
+      "type": "string"
+    },
+    "tip": {
+      "type": "string"
+    },
+    "betterPhrasing": {
+      "type": "string"
+    },
+    "pronunciation": {
+      "type": "string"
+    },
+    "tipThai": {
+      "type": "string"
+    },
+    "reply": {
+      "type": "string"
+    },
+    "emotion": {
+      "type": "string",
+      "enum": [
+        "neutral",
+        "happy",
+        "sad",
+        "angry",
+        "surprised",
+        "fear",
+        "disgust",
+        "thinking"
+      ]
+    },
+    "emotionIntensity": {
+      "type": "integer"
+    },
+    "questsCompleted": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    }
+  },
+  "required": [
+    "score",
+    "status",
+    "reply",
+    "emotion"
+  ],
+  "propertyOrdering": [
+    "transcription",
+    "score",
+    "status",
+    "correction",
+    "pronunciation",
+    "tip",
+    "tipThai",
+    "betterPhrasing",
+    "reply",
+    "emotion",
+    "emotionIntensity",
+    "questsCompleted"
+  ]
+}

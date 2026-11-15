@@ -1,0 +1,242 @@
+[
+  {
+    "rid": "run1|A|067",
+    "scenario": "AirportCustoms",
+    "strategy": "S",
+    "chunks": 2,
+    "rtOnsetMs": 518.59,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 664.06,
+    "rtCompletionMs": 5431.25
+  },
+  {
+    "rid": "run1|A|067",
+    "scenario": "AirportCustoms",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 1914.59,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 6169.35
+  },
+  {
+    "rid": "run1|B|076",
+    "scenario": "AirportCustoms",
+    "strategy": "S",
+    "chunks": 2,
+    "rtOnsetMs": 523.56,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 1239.84,
+    "rtCompletionMs": 7661.15
+  },
+  {
+    "rid": "run1|B|076",
+    "scenario": "AirportCustoms",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 2478.57,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 8385.13
+  },
+  {
+    "rid": "run1|C|114",
+    "scenario": "JobInterview",
+    "strategy": "S",
+    "chunks": 2,
+    "rtOnsetMs": 508.88,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 1200.74,
+    "rtCompletionMs": 7591.99
+  },
+  {
+    "rid": "run1|C|114",
+    "scenario": "JobInterview",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 2450.85,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 8352.7
+  },
+  {
+    "rid": "ceiling1|A|066",
+    "scenario": "AirportCustoms",
+    "strategy": "S",
+    "chunks": 2,
+    "rtOnsetMs": 485.6,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 351.82,
+    "rtCompletionMs": 3901.93
+  },
+  {
+    "rid": "ceiling1|A|066",
+    "scenario": "AirportCustoms",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 1451.56,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 4522.57
+  },
+  {
+    "rid": "ceiling1|C|081",
+    "scenario": "AirportCustoms",
+    "strategy": "S",
+    "chunks": 2,
+    "rtOnsetMs": 500.2,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 534.19,
+    "rtCompletionMs": 4714.96
+  },
+  {
+    "rid": "ceiling1|C|081",
+    "scenario": "AirportCustoms",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 1767.49,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 5461.51
+  },
+  {
+    "rid": "ceiling1|C|083",
+    "scenario": "AirportCustoms",
+    "strategy": "S",
+    "chunks": 2,
+    "rtOnsetMs": 500.72,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 735.07,
+    "rtCompletionMs": 5557.36
+  },
+  {
+    "rid": "ceiling1|C|083",
+    "scenario": "AirportCustoms",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 1942.28,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 6256.74
+  },
+  {
+    "rid": "ceiling1|B|202",
+    "scenario": "DoctorPharmacy",
+    "strategy": "S",
+    "chunks": 3,
+    "rtOnsetMs": 515.06,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 237.24,
+    "rtCompletionMs": 7523.63
+  },
+  {
+    "rid": "ceiling1|B|202",
+    "scenario": "DoctorPharmacy",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 3023.94,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 9781.18
+  },
+  {
+    "rid": "run1|A|069",
+    "scenario": "AirportCustoms",
+    "strategy": "S",
+    "chunks": 3,
+    "rtOnsetMs": 533.07,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 1101.7,
+    "rtCompletionMs": 10077.76
+  },
+  {
+    "rid": "run1|A|069",
+    "scenario": "AirportCustoms",
+    "strategy": "A_post",
+    "chunks": 2,
+    "rtOnsetMs": 2393.31,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 14.33,
+    "rtCompletionMs": 10847.18
+  },
+  {
+    "rid": "ceiling1|B|073",
+    "scenario": "AirportCustoms",
+    "strategy": "S",
+    "chunks": 2,
+    "rtOnsetMs": 499.52,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 262.58,
+    "rtCompletionMs": 4074.0
+  },
+  {
+    "rid": "ceiling1|B|073",
+    "scenario": "AirportCustoms",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 1564.22,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 4871.03
+  },
+  {
+    "rid": "ceiling1|B|076",
+    "scenario": "AirportCustoms",
+    "strategy": "S",
+    "chunks": 3,
+    "rtOnsetMs": 498.73,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 1301.08,
+    "rtCompletionMs": 8973.63
+  },
+  {
+    "rid": "ceiling1|B|076",
+    "scenario": "AirportCustoms",
+    "strategy": "A_post",
+    "chunks": 2,
+    "rtOnsetMs": 2538.42,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 6.1,
+    "rtCompletionMs": 9718.83
+  },
+  {
+    "rid": "ceiling1|B|144",
+    "scenario": "ShoppingStore",
+    "strategy": "S",
+    "chunks": 2,
+    "rtOnsetMs": 494.19,
+    "rtGapsOver20Ms": 1,
+    "rtTotalGapMs": 860.22,
+    "rtCompletionMs": 6169.23
+  },
+  {
+    "rid": "ceiling1|B|144",
+    "scenario": "ShoppingStore",
+    "strategy": "A_post",
+    "chunks": 1,
+    "rtOnsetMs": 2093.78,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 0.0,
+    "rtCompletionMs": 6884.65
+  },
+  {
+    "rid": "run1|C|177",
+    "scenario": "TaxiDirections",
+    "strategy": "S",
+    "chunks": 3,
+    "rtOnsetMs": 515.54,
+    "rtGapsOver20Ms": 2,
+    "rtTotalGapMs": 175.85,
+    "rtCompletionMs": 6634.8
+  },
+  {
+    "rid": "run1|C|177",
+    "scenario": "TaxiDirections",
+    "strategy": "A_post",
+    "chunks": 2,
+    "rtOnsetMs": 1444.04,
+    "rtGapsOver20Ms": 0,
+    "rtTotalGapMs": 3.06,
+    "rtCompletionMs": 7415.12
+  }
+]

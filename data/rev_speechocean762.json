@@ -1,0 +1,217 @@
+{
+  "sample_n": 100,
+  "adults_n": 49,
+  "youth_n": 51,
+  "with_word_mispronunciation_n": 32,
+  "accuracy_le_6_n": 38,
+  "asr_comparison": {
+    "whisper_small_en": {
+      "latency_med_ms": 1143.9,
+      "raw": {
+        "n": 100,
+        "exact": 24,
+        "exact_pct": 24.0,
+        "ref_words": 619,
+        "sub": 186,
+        "del": 15,
+        "ins": 48,
+        "wer_pct": 40.23
+      },
+      "canon": {
+        "n": 100,
+        "exact": 26,
+        "exact_pct": 26.0,
+        "ref_words": 619,
+        "sub": 175,
+        "del": 12,
+        "ins": 48,
+        "wer_pct": 37.96
+      }
+    },
+    "gemini_3_6_stt_tb0": {
+      "latency_med_ms": 1807.5,
+      "raw": {
+        "n": 100,
+        "exact": 30,
+        "exact_pct": 30.0,
+        "ref_words": 619,
+        "sub": 161,
+        "del": 55,
+        "ins": 23,
+        "wer_pct": 38.61
+      },
+      "canon": {
+        "n": 100,
+        "exact": 30,
+        "exact_pct": 30.0,
+        "ref_words": 619,
+        "sub": 162,
+        "del": 45,
+        "ins": 26,
+        "wer_pct": 37.64
+      }
+    },
+    "gemini_3_6_single_request_tb0": {
+      "json_valid": 100,
+      "latency_med_ms": 2258.6,
+      "raw": {
+        "n": 100,
+        "exact": 26,
+        "exact_pct": 26.0,
+        "ref_words": 619,
+        "sub": 178,
+        "del": 43,
+        "ins": 36,
+        "wer_pct": 41.52
+      },
+      "canon": {
+        "n": 100,
+        "exact": 28,
+        "exact_pct": 28.0,
+        "ref_words": 619,
+        "sub": 172,
+        "del": 39,
+        "ins": 36,
+        "wer_pct": 39.9
+      }
+    }
+  },
+  "human_score_alignment": {
+    "n": 100,
+    "spearman_vs_accuracy": 0.4792,
+    "pearson_vs_accuracy": 0.4522,
+    "spearman_vs_fluency": 0.3988,
+    "pearson_vs_fluency": 0.4326,
+    "spearman_vs_total": 0.4952,
+    "pearson_vs_total": 0.5061,
+    "strata": {
+      "low_acc_le5": {
+        "n": 33,
+        "convia_score_mean": 57.12,
+        "convia_score_med": 52
+      },
+      "mid_acc_6_7": {
+        "n": 33,
+        "convia_score_mean": 70.94,
+        "convia_score_med": 76
+      },
+      "high_acc_ge8": {
+        "n": 34,
+        "convia_score_mean": 83.03,
+        "convia_score_med": 93.0
+      }
+    }
+  },
+  "pronunciation_abstention_vs_acc_le6": {
+    "ungated": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 26,
+      "tn": 57,
+      "precision": 0.706,
+      "recall": 0.316,
+      "f1": 0.436
+    },
+    "95": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 26,
+      "tn": 57,
+      "precision": 0.706,
+      "recall": 0.316,
+      "f1": 0.436
+    },
+    "90": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 26,
+      "tn": 57,
+      "precision": 0.706,
+      "recall": 0.316,
+      "f1": 0.436
+    },
+    "85": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 26,
+      "tn": 57,
+      "precision": 0.706,
+      "recall": 0.316,
+      "f1": 0.436
+    },
+    "80": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 26,
+      "tn": 57,
+      "precision": 0.706,
+      "recall": 0.316,
+      "f1": 0.436
+    },
+    "75": {
+      "tp": 10,
+      "fp": 5,
+      "fn": 28,
+      "tn": 57,
+      "precision": 0.667,
+      "recall": 0.263,
+      "f1": 0.377
+    }
+  },
+  "pronunciation_abstention_vs_word_misp": {
+    "ungated": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 20,
+      "tn": 63,
+      "precision": 0.706,
+      "recall": 0.375,
+      "f1": 0.49
+    },
+    "95": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 20,
+      "tn": 63,
+      "precision": 0.706,
+      "recall": 0.375,
+      "f1": 0.49
+    },
+    "90": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 20,
+      "tn": 63,
+      "precision": 0.706,
+      "recall": 0.375,
+      "f1": 0.49
+    },
+    "85": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 20,
+      "tn": 63,
+      "precision": 0.706,
+      "recall": 0.375,
+      "f1": 0.49
+    },
+    "80": {
+      "tp": 12,
+      "fp": 5,
+      "fn": 20,
+      "tn": 63,
+      "precision": 0.706,
+      "recall": 0.375,
+      "f1": 0.49
+    },
+    "75": {
+      "tp": 10,
+      "fp": 5,
+      "fn": 22,
+      "tn": 63,
+      "precision": 0.667,
+      "recall": 0.312,
+      "f1": 0.426
+    }
+  }
+}

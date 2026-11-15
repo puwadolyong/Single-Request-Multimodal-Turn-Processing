@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <NoWarn>CS8618;CS8632;CS0168;CS0219;CS0414;CA1416</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ConviaRoot><CONVIA_PROJECT_ROOT></ConviaRoot>
+    <SherpaPkg>$(ConviaRoot)\Library\PackageCache\com.eitan.sherpa-onnx-unity@cf70be74cb51</SherpaPkg>
+    <UnityNewtonsoft>$(ConviaRoot)\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64\Runtime\Newtonsoft.Json.dll</UnityNewtonsoft>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Literal production parsing, chunking, prompt, schema, and progress rules from Convia -->
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Parsing\AvatarEmotion.cs" Link="ConviaParsing\AvatarEmotion.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Parsing\CoachPrompt.cs" Link="ConviaParsing\CoachPrompt.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Parsing\CoachTurn.cs" Link="ConviaParsing\CoachTurn.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Parsing\ParsedResponse.cs" Link="ConviaParsing\ParsedResponse.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Parsing\SpeechChunker.cs" Link="ConviaParsing\SpeechChunker.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Progress\ConversationTurn.cs" Link="ConviaProgress\ConversationTurn.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Progress\LearningProgressModels.cs" Link="ConviaProgress\LearningProgressModels.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Progress\ProgressRules.cs" Link="ConviaProgress\ProgressRules.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Progress\ReportLocale.cs" Link="ConviaProgress\ReportLocale.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Progress\SkillSummary.cs" Link="ConviaProgress\SkillSummary.cs" />
+    <Compile Include="$(ConviaRoot)\Assets\Scripts\GeminiAvatar\Progress\TurnSkills.cs" Link="ConviaProgress\TurnSkills.cs" />
+
+    <!-- Literal sherpa-onnx C# P/Invoke bindings compiled into Convia -->
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\Dll.cs" Link="SherpaNative\Dll.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTts.cs" Link="SherpaNative\OfflineTts.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsConfig.cs" Link="SherpaNative\OfflineTtsConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsGeneratedAudio.cs" Link="SherpaNative\OfflineTtsGeneratedAudio.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsGenerationConfig.cs" Link="SherpaNative\OfflineTtsGenerationConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsKittenModelConfig.cs" Link="SherpaNative\OfflineTtsKittenModelConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsKokoroModelConfig.cs" Link="SherpaNative\OfflineTtsKokoroModelConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsMatchaModelConfig.cs" Link="SherpaNative\OfflineTtsMatchaModelConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsModelConfig.cs" Link="SherpaNative\OfflineTtsModelConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsPocketModelConfig.cs" Link="SherpaNative\OfflineTtsPocketModelConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsSupertonicModelConfig.cs" Link="SherpaNative\OfflineTtsSupertonicModelConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsVitsModelConfig.cs" Link="SherpaNative\OfflineTtsVitsModelConfig.cs" />
+    <Compile Include="$(SherpaPkg)\Runtime\Core\Native\OfflineTtsZipVoiceModelConfig.cs" Link="SherpaNative\OfflineTtsZipVoiceModelConfig.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(UnityNewtonsoft)</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="$(SherpaPkg)\Runtime\Plugins\Windows\x86_64\sherpa-onnx-c-api.dll">
+      <Link>sherpa-onnx-c-api.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(SherpaPkg)\Runtime\Plugins\Windows\x86_64\onnxruntime.dll">
+      <Link>onnxruntime.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
