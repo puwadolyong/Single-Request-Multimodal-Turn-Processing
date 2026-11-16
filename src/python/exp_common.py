@@ -8,19 +8,25 @@ import time
 
 import numpy as np
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+ARCHIVE_ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
+ARCHIVE_DATA = os.path.join(ARCHIVE_ROOT, "data")
 PROJECT = os.environ.get("CONVIA_PROJECT", "<CONVIA_PROJECT_ROOT>")
-KOKORO_DIR = os.path.join(PROJECT, r"Assets\StreamingAssets\Kokoro-82M\kokoro-en-v0_19")
+KOKORO_DIR = os.environ.get("KOKORO_DIR", os.path.join(PROJECT, r"Assets\StreamingAssets\Kokoro-82M\kokoro-en-v0_19"))
 SCENARIOS_CS = os.path.join(PROJECT, r"Assets\Scripts\GeminiAvatar\Scenarios\BuiltInScenarios.cs")
-TURN_LOGS = [os.path.join(PROJECT, r"Paper\turns_run1.jsonl"), os.path.join(PROJECT, r"Paper\turns_run2.jsonl")]
+TURN_LOGS = (
+    [os.path.join(ARCHIVE_DATA, "turns_run1.jsonl"), os.path.join(ARCHIVE_DATA, "turns_run2.jsonl")]
+    if os.path.isfile(os.path.join(ARCHIVE_DATA, "turns_run1.jsonl"))
+    else [os.path.join(PROJECT, r"Paper\turns_run1.jsonl"), os.path.join(PROJECT, r"Paper\turns_run2.jsonl")]
+)
 STUDY_UTTERANCES = os.path.join(PROJECT, r"Assets\StudyData\study_utterances.txt")
 # The two logged runs (E1 corpus) were produced on 10 Sep 2026 by the model deployed at the time,
 # for typed input; the runner reset the dialogue history every N turns. The application moved to
 # MODEL below on 10 Oct 2026, and E2 used MODEL.
 CORPUS_MODEL = "gemini-3.5-flash"
 CORPUS_HISTORY_RESET = {"run1": 8, "ceiling1": 32}
-KEY_FILE = os.environ.get("GEMINI_KEY_FILE", os.path.join(os.path.dirname(__file__), "gemini.key"))
-HERE = os.path.dirname(os.path.abspath(__file__))
-RESULTS = os.path.join(HERE, "results")
+KEY_FILE = os.environ.get("GEMINI_KEY_FILE", os.path.join(HERE, "gemini.key"))
+RESULTS = ARCHIVE_DATA if os.path.isdir(ARCHIVE_DATA) else os.path.join(HERE, "results")
 os.makedirs(RESULTS, exist_ok=True)
 
 MODEL = "gemini-3.6-flash"          # GeminiProxy.DefaultModel
@@ -165,7 +171,11 @@ def load_utterance_classes():
 
 
 def load_scenarios():
-    """Persona and objective evaluation rules per scenario, parsed from BuiltInScenarios.cs."""
+    """Persona and objective evaluation rules per scenario, parsed from scenarios.json or BuiltInScenarios.cs."""
+    sc_json = os.path.join(ARCHIVE_ROOT, "prompts", "scenarios.json")
+    if os.path.isfile(sc_json) and not os.path.isfile(SCENARIOS_CS):
+        with open(sc_json, encoding="utf-8") as f:
+            return json.load(f)
     src = open(SCENARIOS_CS, encoding="utf-8").read()
     out = {}
     for m in re.finditer(r"case PracticeScenario\.(\w+):(.*?)(?=case PracticeScenario\.|\Z)", src, re.S):
@@ -198,7 +208,10 @@ def coach_prompt(persona, rules, explain_in_thai=True):
     thai = ("IMPORTANT: Write all feedback in clear, simple English, with no emojis. The one exception is the tipThai field, which is written in Thai.\n\n"
             if explain_in_thai else
             "IMPORTANT: Write ALL feedback in clear, simple English (Simple English only, no Thai text, no emojis).\n\n")
-    with open(os.path.join(HERE, "coach_prompt_body.txt"), encoding="utf-8") as f:
+    prompt_body = os.path.join(HERE, "coach_prompt_body.txt")
+    if not os.path.isfile(prompt_body):
+        prompt_body = os.path.join(ARCHIVE_ROOT, "prompts", "coach_prompt_body.txt")
+    with open(prompt_body, encoding="utf-8") as f:
         body = f.read()
     if explain_in_thai:
         body = body.replace("{TIPTHAI}", "- tipThai: the same explanation as tip, written in natural Thai for a Thai first-language learner.\n")

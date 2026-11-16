@@ -225,6 +225,11 @@ namespace GeminiAvatar
         private static readonly Regex QuotedPhraseEdges = new Regex(
             @"^[\s.…""'“”‘’]+|[\s.…!?,""'“”‘’]+$", RegexOptions.Compiled);
 
+        /// <summary>Extracts a complete string value for the reply key from truncated JSON payloads.</summary>
+        private static readonly Regex SalvageJsonReplyField = new Regex(
+            @"""reply""\s*:\s*""((?:\\.|[^""\\])*)""",
+            RegexOptions.Singleline | RegexOptions.Compiled);
+
         /// <summary>Prefix <see cref="ComposeFeedback"/> writes the correction under.</summary>
         private const string GrammarBullet = "• Grammar: ";
 
@@ -260,7 +265,23 @@ namespace GeminiAvatar
 
             string candidate = StripCodeFence(rawResponse.Trim());
             if (candidate.StartsWith("{", StringComparison.Ordinal))
+            {
                 result = TryParseStructured(candidate);
+                if (result == null &&
+                    rawResponse.IndexOf("[SPOKEN]", StringComparison.OrdinalIgnoreCase) < 0 &&
+                    rawResponse.IndexOf("[FEEDBACK]", StringComparison.OrdinalIgnoreCase) < 0 &&
+                    rawResponse.IndexOf("[TRANSCRIPTION]", StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    Match salvage = SalvageJsonReplyField.Match(candidate);
+                    string spokenText = "";
+                    if (salvage.Success)
+                    {
+                        try { spokenText = Regex.Unescape(salvage.Groups[1].Value); }
+                        catch (ArgumentException) { spokenText = salvage.Groups[1].Value; }
+                    }
+                    result = new ParsedResponse { Text = CollapseWhitespace(spokenText) };
+                }
+            }
 
             if (result == null)
                 result = ParseTagged(rawResponse);

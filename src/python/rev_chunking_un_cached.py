@@ -100,52 +100,47 @@ def lookahead1_chunks(sents):
     return [f"{sents[0]} {sents[1]}"] + list(sents[2:])
 
 
-def adaptive_post_merge(text: str, min_chunk: int = 40, max_chunk: int = 180):
-    chunks = list(exp_common.adaptive_chunks(text))
-    if len(chunks) <= 1:
-        return chunks
-    # Forward merge short leading/interior chunks (< min_chunk) when combined <= max_chunk
-    changed = True
-    while changed and len(chunks) > 1:
-        changed = False
-        for i in range(len(chunks)):
-            if len(chunks[i]) < min_chunk:
-                if i == 0 and len(chunks[0]) + 1 + len(chunks[1]) <= max_chunk:
-                    chunks = [f"{chunks[0]} {chunks[1]}"] + chunks[2:]
-                    changed = True
-                    break
-                elif i > 0 and len(chunks[i - 1]) + 1 + len(chunks[i]) <= max_chunk:
-                    chunks = chunks[: i - 1] + [f"{chunks[i - 1]} {chunks[i]}"] + chunks[i + 1 :]
-                    changed = True
-                    break
+def adaptive_post_merge(text: str, r_hat: float = 52.0, alpha: float = 1.3, tau0: float = 220.0, tau1: float = 18.8):
+    """Two-pass adaptive sentence chunker A_post (Algorithm 1) with backward-revisiting Pass 2."""
+    sents = exp_common.sentences(text)
+    if not sents:
+        return []
+    # Pass 1: forward greedy accumulation
+    chunks = [sents[0]]
+    for s in sents[1:]:
+        if r_hat * len(chunks[-1]) >= alpha * (tau0 + tau1 * len(s)):
+            chunks.append(s)
+        else:
+            chunks[-1] = chunks[-1] + " " + s
+    # Pass 2: backward-revisiting lookahead
+    i = 0
+    while i < len(chunks) - 1:
+        if r_hat * len(chunks[i]) < alpha * (tau0 + tau1 * len(chunks[i + 1])):
+            chunks[i] = chunks[i] + " " + chunks[i + 1]
+            del chunks[i + 1]
+            i = max(0, i - 1)
+        else:
+            i += 1
     return chunks
 
 
-def causal_online_chunks(sents):
-    """Strictly causal sentence-arrival chunker matching SpeechChunker online delta thresholds
-    without peeking past the next arriving sentence or performing retroactive post-merge over unseen tail.
-    Chunk 0 accumulates sentences up to >= 55 chars (max 2 sentences, capped at <= 180 chars);
-    subsequent chunks flush whenever current buffer >= 45 chars or combined with next > 160 chars.
+def causal_online_eval(items, cache, eta: float = 0.25, r_hat0: float = 52.0,
+                       alpha: float = 1.3, tau0: float = 220.0, tau1: float = 18.8):
+    """Strictly causal Eq. (6) online EMA adaptation evaluated sequentially across turns.
+
+    r_hat is initialized at r_hat0, used prior to scheduling each turn (zero future leakage),
+    and updated strictly after each chunk completes synthesis with D_k^obs / len(chunk).
     """
-    chunks = []
-    idx = 0
-    if idx < len(sents):
-        buf = sents[idx]
-        idx += 1
-        while idx < len(sents) and len(buf) < 55 and (len(buf) + 1 + len(sents[idx])) <= 180:
-            buf = f"{buf} {sents[idx]}"
-            idx += 1
-            if len(chunks) == 0 and len(buf) >= 55:
-                break
-        chunks.append(buf)
-    while idx < len(sents):
-        buf = sents[idx]
-        idx += 1
-        while idx < len(sents) and len(buf) < 45 and (len(buf) + 1 + len(sents[idx])) <= 160:
-            buf = f"{buf} {sents[idx]}"
-            idx += 1
-        chunks.append(buf)
-    return chunks
+    r_hat = r_hat0
+    recs = []
+    for _rid, _sc, rep, _ss in items:
+        chunks = adaptive_post_merge(rep, r_hat=r_hat, alpha=alpha, tau0=tau0, tau1=tau1)
+        st_list = [cache[c] for c in chunks]
+        recs.append(eval_schedule(st_list, pre_buffer_ms=0.0, use_60hz=True))
+        for ch, (_sm, am, _rm) in zip(chunks, st_list):
+            if len(ch) > 0:
+                r_hat = (1.0 - eta) * r_hat + eta * (am / len(ch))
+    return recs
 
 
 def eval_schedule(chunk_stats_list, pre_buffer_ms: float = 0.0, use_60hz: bool = True):
@@ -190,24 +185,38 @@ def eval_schedule(chunk_stats_list, pre_buffer_ms: float = 0.0, use_60hz: bool =
     }
 
 
+def pct(vals, q: float) -> float:
+    s = sorted(vals)
+    if not s:
+        return 0.0
+    if len(s) == 1:
+        return s[0]
+    pos = (len(s) - 1) * q
+    lo, hi = int(math.floor(pos)), int(math.ceil(pos))
+    return s[lo] + (s[hi] - s[lo]) * (pos - lo)
+
+
 def summarize_metrics(records):
     n = len(records)
     ttfas = sorted(r["ttfa_ms"] for r in records)
     comps = sorted(r["completion_ms"] for r in records)
     aff = sum(1 for r in records if r["gaps_over_20"] > 0)
     tot_gaps = sum(r["gaps_over_20"] for r in records)
-    max_g = max(r["max_gap_ms"] for r in records)
+    max_single_g = max(r["max_gap_ms"] for r in records)
+    aff_sums = [r["gap_sum_ms"] for r in records if r["gaps_over_20"] > 0]
+    max_reply_stall = max(aff_sums) if aff_sums else 0.0
     return {
         "n": n,
         "affected_replies": aff,
         "affected_pct": round(aff / n * 100.0, 2),
         "total_gaps_over_20ms": tot_gaps,
-        "max_single_gap_ms": round(max_g, 2),
+        "max_reply_stall_ms": round(max_reply_stall, 2),
+        "max_single_gap_ms": round(max_single_g, 2),
         "ttfa_median_ms": round(statistics.median(ttfas), 2),
         "ttfa_mean_ms": round(statistics.mean(ttfas), 2),
-        "ttfa_p95_ms": round(ttfas[min(n - 1, int(0.95 * n))], 2),
+        "ttfa_p95_ms": round(pct(ttfas, 0.95), 2),
         "comp_median_ms": round(statistics.median(comps), 2),
-        "comp_p95_ms": round(comps[min(n - 1, int(0.95 * n))], 2),
+        "comp_p95_ms": round(pct(comps, 0.95), 2),
     }
 
 
@@ -245,7 +254,6 @@ def main():
             plans[(rid, "W")] = [rep]
             plans[(rid, "S")] = ss
             plans[(rid, "Lookahead1")] = lookahead1_chunks(ss)
-            plans[(rid, "CausalOnline")] = causal_online_chunks(ss)
             plans[(rid, "A")] = list(exp_common.adaptive_chunks(rep))
             plans[(rid, "A_post")] = adaptive_post_merge(rep)
             for th in [40, 60, 80, 100, 120]:
@@ -269,60 +277,86 @@ def main():
     for pname, nt, aff_mask, cache_path in profiles:
         set_affinity_mask(aff_mask)
         cache = load_csharp_cache(cache_path)
-        missing = sorted(c for c in all_unique if c not in cache)
-        # Also validate cross-binding parity on 10 shared chunks
-        shared_probe = sorted(c for c in all_unique if c in cache)[:10]
-        print(f"[{pname}] total_unique={len(all_unique)}, in_csharp_cache={len(all_unique)-len(missing)}, missing_to_synth={len(missing)}", flush=True)
-        tts = make_tts(nt)
-        parity_diffs = []
-        for c in shared_probe:
-            sm_py, am_py, _ = synth_one(tts, c)
-            sm_cs, am_cs, _ = cache[c]
-            parity_diffs.append({"chars": len(c), "cs_synth_ms": round(sm_cs, 2), "py_synth_ms": round(sm_py, 2), "ratio": round(sm_py / max(1e-3, sm_cs), 3)})
-
-        for i, c in enumerate(missing):
-            cache[c] = synth_one(tts, c)
-            if (i + 1) % 50 == 0:
-                print(f"  [{pname}] synthesized {i+1}/{len(missing)} extra unique chunks", flush=True)
-
-        # Save complete augmented chunk cache
         aug_csv = os.path.join(RESULTS_DIR, f"rev_augmented_chunk_cache_{pname}.csv")
-        with open(aug_csv, "w", encoding="utf-8", newline="") as f:
-            w = csv.writer(f)
-            w.writerow(["synth_ms", "audio_ms", "resamp_ms", "chars", "text"])
-            for txt in sorted(all_unique):
-                sm, am, rm = cache[txt]
-                w.writerow([f"{sm:.3f}", f"{am:.3f}", f"{rm:.3f}", len(txt), txt])
+        if os.path.isfile(aug_csv):
+            for k_c, v_c in load_csharp_cache(aug_csv).items():
+                cache.setdefault(k_c, v_c)
+        missing = sorted(c for c in all_unique if c not in cache)
+        shared_probe = sorted(c for c in all_unique if c in cache)[:10]
+        print(f"[{pname}] total_unique={len(all_unique)}, cached={len(all_unique)-len(missing)}, missing_to_synth={len(missing)}", flush=True)
+        parity_diffs = []
+        if missing:
+            tts = make_tts(nt)
+            for c in shared_probe:
+                sm_py, _am_py, _ = synth_one(tts, c)
+                sm_cs, _am_cs, _ = cache[c]
+                parity_diffs.append({"chars": len(c), "cs_synth_ms": round(sm_cs, 2), "py_synth_ms": round(sm_py, 2), "ratio": round(sm_py / max(1e-3, sm_cs), 3)})
+            for i, c in enumerate(missing):
+                cache[c] = synth_one(tts, c)
+                if (i + 1) % 50 == 0:
+                    print(f"  [{pname}] synthesized {i+1}/{len(missing)} extra unique chunks", flush=True)
+            with open(aug_csv, "w", encoding="utf-8", newline="") as f:
+                w = csv.writer(f)
+                w.writerow(["synth_ms", "audio_ms", "resamp_ms", "chars", "text"])
+                for txt in sorted(all_unique):
+                    sm, am, rm = cache[txt]
+                    w.writerow([f"{sm:.3f}", f"{am:.3f}", f"{rm:.3f}", len(txt), txt])
 
         # Score all strategies on stratified 128 and disjoint 32 pairs
         strat_res = {}
-        strat_names = ["W", "S", "S_buf_200", "S_buf_400", "S_buf_600", "S_buf_800", "S_buf_1000", "Lookahead1", "Lmin_40", "Lmin_60", "Lmin_80", "Lmin_100", "Lmin_120", "CausalOnline", "A", "A_post"]
+        strat_names = ["W", "S", "S_buf_200", "S_buf_400", "S_buf_600", "S_buf_800", "S_buf_1000",
+                       "Lookahead1", "Lmin_40", "Lmin_60", "Lmin_80", "Lmin_100", "Lmin_120",
+                       "CausalOnline", "A", "A_post"]
         for st in strat_names:
-            recs = []
-            for rid, sc, rep, ss in strat_replies:
-                if st.startswith("S_buf_"):
-                    pb = float(st.split("_")[-1])
-                    chs = strat_plans[(rid, "S")]
-                else:
-                    pb = 0.0
-                    chs = strat_plans[(rid, st)]
-                st_list = [cache[c] for c in chs]
-                recs.append(eval_schedule(st_list, pre_buffer_ms=pb, use_60hz=True))
+            if st == "CausalOnline":
+                recs = causal_online_eval(strat_replies, cache)
+            else:
+                recs = []
+                for rid, _sc, _rep, _ss in strat_replies:
+                    if st.startswith("S_buf_"):
+                        pb = float(st.split("_")[-1])
+                        chs = strat_plans[(rid, "S")]
+                    else:
+                        pb = 0.0
+                        chs = strat_plans[(rid, st)]
+                    st_list = [cache[c] for c in chs]
+                    recs.append(eval_schedule(st_list, pre_buffer_ms=pb, use_60hz=True))
             strat_res[st] = summarize_metrics(recs)
 
         pair_res = {}
-        for st in ["W", "S", "S_buf_400", "S_buf_800", "Lookahead1", "Lmin_80", "CausalOnline", "A", "A_post"]:
-            recs = []
-            for rid, sc, comb, ss in disjoint_pairs:
-                if st.startswith("S_buf_"):
-                    pb = float(st.split("_")[-1])
-                    chs = pair_plans[(rid, "S")]
-                else:
-                    pb = 0.0
-                    chs = pair_plans[(rid, st)]
-                st_list = [cache[c] for c in chs]
-                recs.append(eval_schedule(st_list, pre_buffer_ms=pb, use_60hz=True))
+        pair_names = ["W", "S", "S_buf_400", "S_buf_800", "Lookahead1", "Lmin_40", "Lmin_60", "Lmin_80", "CausalOnline", "A", "A_post"]
+        for st in pair_names:
+            if st == "CausalOnline":
+                recs = causal_online_eval(disjoint_pairs, cache)
+            else:
+                recs = []
+                for rid, _sc, _comb, _ss in disjoint_pairs:
+                    if st.startswith("S_buf_"):
+                        pb = float(st.split("_")[-1])
+                        chs = pair_plans[(rid, "S")]
+                    else:
+                        pb = 0.0
+                        chs = pair_plans[(rid, st)]
+                    st_list = [cache[c] for c in chs]
+                    recs.append(eval_schedule(st_list, pre_buffer_ms=pb, use_60hz=True))
             pair_res[st] = summarize_metrics(recs)
+
+        # Evaluate robustness of fixed L_min thresholds vs A_post under faster speaking rate (1.30 vs 1.05) and 1.35x CPU slowdown
+        sens_res = {}
+        for cond_lbl, synth_scale, speed_scale in [
+            ("speed_1.30x", 1.0, 1.30 / 1.05),
+            ("cpu_slow_1.35x", 1.35, 1.0),
+        ]:
+            scaled_cache = {k: (v[0] * synth_scale, v[1] / speed_scale, v[2]) for k, v in cache.items()}
+            c_map = {}
+            for sub_lbl, items, plans in [("stratified_128", strat_replies, strat_plans), ("disjoint_32", disjoint_pairs, pair_plans)]:
+                s_map = {}
+                for pol in ("Lmin_40", "Lmin_60", "A_post"):
+                    recs = [eval_schedule([scaled_cache[c] for c in plans[(rid, pol)]], pre_buffer_ms=0.0, use_60hz=True)
+                            for rid, _sc, _rep, _ss in items]
+                    s_map[pol] = summarize_metrics(recs)
+                c_map[sub_lbl] = s_map
+            sens_res[cond_lbl] = c_map
 
         out["profiles"][pname] = {
             "threads": nt,
@@ -331,6 +365,7 @@ def main():
             "cross_binding_parity_sample": parity_diffs,
             "stratified_128": strat_res,
             "disjoint_32_long_pairs": pair_res,
+            "rate_and_slowdown_sensitivity": sens_res,
         }
 
     # Restore full mask

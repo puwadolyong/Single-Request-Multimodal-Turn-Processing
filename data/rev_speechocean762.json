@@ -213,5 +213,123 @@
       "recall": 0.312,
       "f1": 0.426
     }
+  },
+  "corpus_natural_distribution": {
+    "corpus_test_n": 2500,
+    "low_le5": {
+      "n": 257,
+      "pct": 10.28
+    },
+    "mid_6_7": {
+      "n": 506,
+      "pct": 20.24
+    },
+    "high_ge8": {
+      "n": 1737,
+      "pct": 69.48
+    }
+  },
+  "per_stratum_canon_wer": {
+    "whisper_small_en": {
+      "low_acc_le5": {
+        "n": 33,
+        "exact": 2,
+        "exact_pct": 6.06,
+        "ref_words": 203,
+        "sub": 95,
+        "del": 6,
+        "ins": 27,
+        "wer_pct": 63.05
+      },
+      "mid_acc_6_7": {
+        "n": 33,
+        "exact": 8,
+        "exact_pct": 24.24,
+        "ref_words": 205,
+        "sub": 56,
+        "del": 3,
+        "ins": 13,
+        "wer_pct": 35.12
+      },
+      "high_acc_ge8": {
+        "n": 34,
+        "exact": 16,
+        "exact_pct": 47.06,
+        "ref_words": 211,
+        "sub": 24,
+        "del": 3,
+        "ins": 8,
+        "wer_pct": 16.59
+      }
+    },
+    "gemini_3_6_stt_tb0": {
+      "low_acc_le5": {
+        "n": 33,
+        "exact": 1,
+        "exact_pct": 3.03,
+        "ref_words": 203,
+        "sub": 90,
+        "del": 27,
+        "ins": 10,
+        "wer_pct": 62.56
+      },
+      "mid_acc_6_7": {
+        "n": 33,
+        "exact": 9,
+        "exact_pct": 27.27,
+        "ref_words": 205,
+        "sub": 49,
+        "del": 9,
+        "ins": 8,
+        "wer_pct": 32.2
+      },
+      "high_acc_ge8": {
+        "n": 34,
+        "exact": 20,
+        "exact_pct": 58.82,
+        "ref_words": 211,
+        "sub": 23,
+        "del": 9,
+        "ins": 8,
+        "wer_pct": 18.96
+      }
+    },
+    "gemini_3_6_single_request_tb0": {
+      "low_acc_le5": {
+        "n": 33,
+        "exact": 1,
+        "exact_pct": 3.03,
+        "ref_words": 203,
+        "sub": 95,
+        "del": 26,
+        "ins": 19,
+        "wer_pct": 68.97
+      },
+      "mid_acc_6_7": {
+        "n": 33,
+        "exact": 6,
+        "exact_pct": 18.18,
+        "ref_words": 205,
+        "sub": 57,
+        "del": 7,
+        "ins": 11,
+        "wer_pct": 36.59
+      },
+      "high_acc_ge8": {
+        "n": 34,
+        "exact": 21,
+        "exact_pct": 61.76,
+        "ref_words": 211,
+        "sub": 20,
+        "del": 6,
+        "ins": 6,
+        "wer_pct": 15.17
+      }
+    }
+  },
+  "prevalence_weighted_canon_wer": {
+    "whisper_small_en": 25.12,
+    "gemini_3_6_stt_tb0": 26.12,
+    "gemini_3_6_single_request_tb0": 25.04
   }
 }

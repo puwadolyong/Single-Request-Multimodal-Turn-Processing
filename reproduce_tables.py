@@ -204,13 +204,31 @@ def main():
                 continue
             print(f"    {pol:<13}: TTFA={d['ttfa_median_ms']:7.1f} (P95={d['ttfa_p95_ms']:7.1f}), "
                   f"Comp={d['comp_median_ms']:7.1f}, Aff={d['affected_replies']:2d}/128 ({d['affected_pct']:5.2f}%), "
-                  f"maxG={d['max_single_gap_ms']:6.1f}")
+                  f"maxStall={d['max_reply_stall_ms']:6.1f}")
         print(f"  [{prof}] (disjoint n=32 long pairs)")
-        for pol in ("W", "S", "S_buf_400", "S_buf_800", "Lookahead1", "Lmin_80", "CausalOnline", "A", "A_post"):
+        for pol in ("W", "S", "S_buf_400", "S_buf_800", "Lookahead1", "Lmin_40", "Lmin_60", "Lmin_80", "CausalOnline", "A", "A_post"):
             d = cb["profiles"][prof]["disjoint_32_long_pairs"].get(pol)
             if not d:
                 continue
-            print(f"    {pol:<13}: TTFA={d['ttfa_median_ms']:7.1f}, Aff={d['affected_replies']:2d}/32 ({d['affected_pct']:5.2f}%), maxG={d['max_single_gap_ms']:6.1f}")
+            print(f"    {pol:<13}: TTFA={d['ttfa_median_ms']:7.1f}, Aff={d['affected_replies']:2d}/32 ({d['affected_pct']:5.2f}%), maxStall={d['max_reply_stall_ms']:6.1f}")
+
+    # Assert exact reconciliation between Table 5 and Table 6 plus rate/load sensitivity
+    d4 = cb["profiles"]["desktop_4t_idle"]["stratified_128"]
+    l2 = cb["profiles"]["laptop_2t_affinity4"]["stratified_128"]
+    assert abs(d4["A_post"]["ttfa_median_ms"] - 1200.0) < 0.05
+    assert abs(d4["CausalOnline"]["ttfa_median_ms"] - 1208.33) < 0.05
+    assert abs(l2["A_post"]["ttfa_median_ms"] - 2116.67) < 0.05
+    assert abs(l2["CausalOnline"]["ttfa_median_ms"] - 2116.67) < 0.05
+    assert abs(l2["S"]["ttfa_p95_ms"] - 2120.83) < 0.05
+    assert abs(l2["S"]["max_reply_stall_ms"] - 1622.4) < 0.1
+    assert l2["A_post"]["affected_replies"] == 0 and l2["CausalOnline"]["affected_replies"] == 0
+    sens = cb["profiles"]["laptop_2t_affinity4"]["rate_and_slowdown_sensitivity"]
+    assert sens["speed_1.30x"]["stratified_128"]["Lmin_40"]["affected_replies"] == 4
+    assert sens["speed_1.30x"]["stratified_128"]["A_post"]["affected_replies"] == 0
+    assert sens["cpu_slow_1.35x"]["stratified_128"]["Lmin_40"]["affected_replies"] == 4
+    assert sens["cpu_slow_1.35x"]["stratified_128"]["A_post"]["affected_replies"] == 0
+    print(f"  Sensitivity verified on 2t: Lmin_40 stalls {sens['speed_1.30x']['stratified_128']['Lmin_40']['affected_replies']}/128 (speed 1.30x) and "
+          f"{sens['cpu_slow_1.35x']['stratified_128']['Lmin_40']['affected_replies']}/128 (1.35x CPU slowdown); A_post holds 0/128.")
 
     # ------------------------------------------------------------------
     # 3. Experiment 2 Latency, WER, McNemar & Utterance Inventory
@@ -277,14 +295,24 @@ def main():
         p_chk = exact_mcnemar_p(mc["n10"], mc["n01"])
         assert abs(p_chk - mc["exact_p"]) < 1e-12
         print(f"  McNemar {pair}: (11={mc['n11']}, 10={mc['n10']}, 01={mc['n01']}, 00={mc['n00']}) p={p_chk:.5f}")
+    c4b = tb0["part2_c4_base_en_64"]
+    print(f"  C4_base (counterf.): apiReady={c4b['api_ready_ms']['p50']:6.1f} (P95={c4b['api_ready_ms']['p95']:6.1f}), "
+          f"e2eEst={c4b['e2e_4t_est_offset_ms']['p50']:6.1f}, canonEx={c4b['solo_canon_wer']['exact_pct']:5.2f}% (WER {c4b['solo_canon_wer']['wer_pct']:4.2f}%)")
+    print("  Paired Wilcoxon tests (n=64):")
+    for k, w in tb0["part2_wilcoxon_paired_64"].items():
+        am = w["api_ready_ms"]
+        print(f"    {k:<26}: API diff={am['median_diff']:6.1f} ms {am['ci95']} p={am['wilcoxon_p']:.3e}")
 
     print("\nHistory depth & Network profiles (n=24, tb0):")
     for k, d in tb0["part3a_history_depth_24"].items():
         print(f"  {k:<8}: tok={d['prompt_tokens_med']:6.1f}, api={d['api_ms']['p50']:6.1f} (P95={d['api_ms']['p95']:6.1f}), "
-              f"e2e4t={d['e2e_4t_ms']['p50']:6.1f}, canonEx={d['canon_wer']['exact_pct']:5.2f}%")
+              f"e2e4t={d['e2e_4t_ms']['p50']:6.1f}, canonEx={d['canon_wer']['exact_pct']:5.2f}% (WER {d['canon_wer']['wer_pct']:4.2f}%)")
     for k, d in tb0["part3b_network_profiles_24"].items():
         print(f"  {k:<22}: apiReady={d['api_ready_ms']['p50']:6.1f} (P95={d['api_ready_ms']['p95']:6.1f}), "
               f"e2e4t={d['e2e_4t_ms']['p50']:6.1f} (P95={d['e2e_4t_ms']['p95']:6.1f})")
+    for prof, pd in tb0["part3b_wilcoxon_paired_24"].items():
+        am = pd["C2_flash_stream_minus_C1"]["e2e_4t_matched_ms"]
+        print(f"    {prof:<16} C2_stream-C1 E2E diff={am['median_diff']:5.1f} ms, p={am['wilcoxon_p']:.3e}")
 
     print("\nCross-model portability (n=32, tb0):")
     for k, d in tb0["part3c_model_generalization_32"].items():
@@ -315,6 +343,11 @@ def main():
           f"fluency={corr['spearman_vs_fluency']:.4f}, total={corr['spearman_vs_total']:.4f}")
     for st, vals in corr["strata"].items():
         print(f"  Stratum {st:<14}: n={vals['n']}, convia mean={vals['convia_score_mean']:.2f}, med={vals['convia_score_med']:.1f}")
+    print("  Per-stratum canonical WER & N=2,500 corpus prevalence-weighted WER:")
+    for mk, sdict in so["per_stratum_canon_wer"].items():
+        wtd = so["prevalence_weighted_canon_wer"][mk]
+        print(f"    {mk:<28}: Low={sdict['low_acc_le5']['wer_pct']:.2f}%, Mid={sdict['mid_acc_6_7']['wer_pct']:.2f}%, "
+              f"High={sdict['high_acc_ge8']['wer_pct']:.2f}% | Weighted={wtd:.2f}%")
     for tau, metrics in so["pronunciation_abstention_vs_acc_le6"].items():
         print(f"  Abstain (acc<=6) tau={tau:<8}: TP={metrics['tp']:2d}, FP={metrics['fp']:2d}, FN={metrics['fn']:2d}, TN={metrics['tn']:2d}, "
               f"P={metrics['precision']:.3f}, R={metrics['recall']:.3f}, F1={metrics['f1']:.3f}")
@@ -325,6 +358,7 @@ def main():
     gr = json.loads((DATA / "rev_csharp_guardrails.json").read_text(encoding="utf-8"))
     sc = gr["strataCounts"]
     fc = gr["fallbackContractSuite"]
+    assert fc["passed"] == 15 and fc["total"] == 15
     print(f"\nC# Guardrail & Parser Contract Audit: parser tests={fc['passed']}/{fc['total']}, turns N={gr['totalTurns']}")
     for st in ("A", "B", "C", "D", "ALL"):
         s = sc[st]

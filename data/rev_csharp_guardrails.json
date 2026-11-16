@@ -443,8 +443,8 @@
   ],
   "fallbackContractSuite": {
     "total": 15,
-    "passed": 13,
-    "failed": 2,
+    "passed": 15,
+    "failed": 0,
     "cases": [
       {
         "name": "NullPayload_SafeEmpty",
@@ -458,7 +458,7 @@
       },
       {
         "name": "TruncatedJson_DoesNotThrow_NoJsonLeak",
-        "passed": false,
+        "passed": true,
         "error": null
       },
       {
@@ -473,7 +473,7 @@
       },
       {
         "name": "MissingReplyJson_FallsThroughSafely",
-        "passed": false,
+        "passed": true,
         "error": null
       },
       {
