@@ -256,6 +256,7 @@ def main():
             plans[(rid, "Lookahead1")] = lookahead1_chunks(ss)
             plans[(rid, "A")] = list(exp_common.adaptive_chunks(rep))
             plans[(rid, "A_post")] = adaptive_post_merge(rep)
+            plans[(rid, "A_post_d42")] = adaptive_post_merge(rep, r_hat=52.0 * (1.05 / 1.30))
             for th in [40, 60, 80, 100, 120]:
                 plans[(rid, f"Lmin_{th}")] = lmin_chunks(ss, th)
         return plans
@@ -343,15 +344,15 @@ def main():
 
         # Evaluate robustness of fixed L_min thresholds vs A_post under faster speaking rate (1.30 vs 1.05) and 1.35x CPU slowdown
         sens_res = {}
-        for cond_lbl, synth_scale, speed_scale in [
-            ("speed_1.30x", 1.0, 1.30 / 1.05),
-            ("cpu_slow_1.35x", 1.35, 1.0),
+        for cond_lbl, synth_scale, speed_scale, pols in [
+            ("speed_1.30x", 1.0, 1.30 / 1.05, ("Lmin_40", "Lmin_60", "A_post", "A_post_d42")),
+            ("cpu_slow_1.35x", 1.35, 1.0, ("Lmin_40", "Lmin_60", "A_post")),
         ]:
             scaled_cache = {k: (v[0] * synth_scale, v[1] / speed_scale, v[2]) for k, v in cache.items()}
             c_map = {}
             for sub_lbl, items, plans in [("stratified_128", strat_replies, strat_plans), ("disjoint_32", disjoint_pairs, pair_plans)]:
                 s_map = {}
-                for pol in ("Lmin_40", "Lmin_60", "A_post"):
+                for pol in pols:
                     recs = [eval_schedule([scaled_cache[c] for c in plans[(rid, pol)]], pre_buffer_ms=0.0, use_60hz=True)
                             for rid, _sc, _rep, _ss in items]
                     s_map[pol] = summarize_metrics(recs)

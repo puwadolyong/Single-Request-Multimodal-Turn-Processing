@@ -218,16 +218,23 @@
     "corpus_test_n": 2500,
     "low_le5": {
       "n": 257,
-      "pct": 10.28
+      "pct": 10.28,
+      "canon_words": 1786,
+      "word_pct": 11.19
     },
     "mid_6_7": {
       "n": 506,
-      "pct": 20.24
+      "pct": 20.24,
+      "canon_words": 3282,
+      "word_pct": 20.55
     },
     "high_ge8": {
       "n": 1737,
-      "pct": 69.48
-    }
+      "pct": 69.48,
+      "canon_words": 10899,
+      "word_pct": 68.26
+    },
+    "corpus_total_canon_words": 15967
   },
   "per_stratum_canon_wer": {
     "whisper_small_en": {
@@ -331,5 +338,108 @@
     "whisper_small_en": 25.12,
     "gemini_3_6_stt_tb0": 26.12,
     "gemini_3_6_single_request_tb0": 25.04
+  },
+  "per_stratum_raw_wer": {
+    "whisper_small_en": {
+      "low_acc_le5": {
+        "n": 33,
+        "exact": 2,
+        "exact_pct": 6.06,
+        "ref_words": 203,
+        "sub": 94,
+        "del": 9,
+        "ins": 27,
+        "wer_pct": 64.04
+      },
+      "mid_acc_6_7": {
+        "n": 33,
+        "exact": 6,
+        "exact_pct": 18.18,
+        "ref_words": 205,
+        "sub": 67,
+        "del": 3,
+        "ins": 13,
+        "wer_pct": 40.49
+      },
+      "high_acc_ge8": {
+        "n": 34,
+        "exact": 16,
+        "exact_pct": 47.06,
+        "ref_words": 211,
+        "sub": 25,
+        "del": 3,
+        "ins": 8,
+        "wer_pct": 17.06
+      }
+    },
+    "gemini_3_6_stt_tb0": {
+      "low_acc_le5": {
+        "n": 33,
+        "exact": 1,
+        "exact_pct": 3.03,
+        "ref_words": 203,
+        "sub": 88,
+        "del": 31,
+        "ins": 10,
+        "wer_pct": 63.55
+      },
+      "mid_acc_6_7": {
+        "n": 33,
+        "exact": 9,
+        "exact_pct": 27.27,
+        "ref_words": 205,
+        "sub": 49,
+        "del": 15,
+        "ins": 5,
+        "wer_pct": 33.66
+      },
+      "high_acc_ge8": {
+        "n": 34,
+        "exact": 20,
+        "exact_pct": 58.82,
+        "ref_words": 211,
+        "sub": 24,
+        "del": 9,
+        "ins": 8,
+        "wer_pct": 19.43
+      }
+    },
+    "gemini_3_6_single_request_tb0": {
+      "low_acc_le5": {
+        "n": 33,
+        "exact": 1,
+        "exact_pct": 3.03,
+        "ref_words": 203,
+        "sub": 92,
+        "del": 30,
+        "ins": 19,
+        "wer_pct": 69.46
+      },
+      "mid_acc_6_7": {
+        "n": 33,
+        "exact": 4,
+        "exact_pct": 12.12,
+        "ref_words": 205,
+        "sub": 65,
+        "del": 7,
+        "ins": 11,
+        "wer_pct": 40.49
+      },
+      "high_acc_ge8": {
+        "n": 34,
+        "exact": 21,
+        "exact_pct": 61.76,
+        "ref_words": 211,
+        "sub": 21,
+        "del": 6,
+        "ins": 6,
+        "wer_pct": 15.64
+      }
+    }
+  },
+  "prevalence_word_weighted_canon_wer": {
+    "whisper_small_en": 25.6,
+    "gemini_3_6_stt_tb0": 26.56,
+    "gemini_3_6_single_request_tb0": 25.59
   }
 }

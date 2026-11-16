@@ -225,10 +225,14 @@ def main():
     sens = cb["profiles"]["laptop_2t_affinity4"]["rate_and_slowdown_sensitivity"]
     assert sens["speed_1.30x"]["stratified_128"]["Lmin_40"]["affected_replies"] == 4
     assert sens["speed_1.30x"]["stratified_128"]["A_post"]["affected_replies"] == 0
+    assert sens["speed_1.30x"]["stratified_128"]["A_post_d42"]["affected_replies"] == 0
     assert sens["cpu_slow_1.35x"]["stratified_128"]["Lmin_40"]["affected_replies"] == 4
     assert sens["cpu_slow_1.35x"]["stratified_128"]["A_post"]["affected_replies"] == 0
-    print(f"  Sensitivity verified on 2t: Lmin_40 stalls {sens['speed_1.30x']['stratified_128']['Lmin_40']['affected_replies']}/128 (speed 1.30x) and "
-          f"{sens['cpu_slow_1.35x']['stratified_128']['Lmin_40']['affected_replies']}/128 (1.35x CPU slowdown); A_post holds 0/128.")
+    print(f"  Sensitivity verified on 2t: speed 1.30x -> Lmin_40={sens['speed_1.30x']['stratified_128']['Lmin_40']['affected_replies']}/128, "
+          f"A_post(d=52)={sens['speed_1.30x']['stratified_128']['A_post']['affected_replies']}/128, "
+          f"A_post(d=42)={sens['speed_1.30x']['stratified_128']['A_post_d42']['affected_replies']}/128; "
+          f"1.35x CPU -> Lmin_40={sens['cpu_slow_1.35x']['stratified_128']['Lmin_40']['affected_replies']}/128, "
+          f"A_post={sens['cpu_slow_1.35x']['stratified_128']['A_post']['affected_replies']}/128.")
 
     # ------------------------------------------------------------------
     # 3. Experiment 2 Latency, WER, McNemar & Utterance Inventory
@@ -343,11 +347,17 @@ def main():
           f"fluency={corr['spearman_vs_fluency']:.4f}, total={corr['spearman_vs_total']:.4f}")
     for st, vals in corr["strata"].items():
         print(f"  Stratum {st:<14}: n={vals['n']}, convia mean={vals['convia_score_mean']:.2f}, med={vals['convia_score_med']:.1f}")
-    print("  Per-stratum canonical WER & N=2,500 corpus prevalence-weighted WER:")
+    print("  Per-stratum raw & canonical WER + N=2,500 prevalence-weighted WER (word vs utterance):")
     for mk, sdict in so["per_stratum_canon_wer"].items():
-        wtd = so["prevalence_weighted_canon_wer"][mk]
-        print(f"    {mk:<28}: Low={sdict['low_acc_le5']['wer_pct']:.2f}%, Mid={sdict['mid_acc_6_7']['wer_pct']:.2f}%, "
-              f"High={sdict['high_acc_ge8']['wer_pct']:.2f}% | Weighted={wtd:.2f}%")
+        rdict = so["per_stratum_raw_wer"][mk]
+        wtd_u = so["prevalence_weighted_canon_wer"][mk]
+        wtd_w = so["prevalence_word_weighted_canon_wer"][mk]
+        assert sum(rdict[k]["exact"] for k in ("low_acc_le5", "mid_acc_6_7", "high_acc_ge8")) == so["asr_comparison"][mk]["raw"]["exact"]
+        assert sum(sdict[k]["exact"] for k in ("low_acc_le5", "mid_acc_6_7", "high_acc_ge8")) == so["asr_comparison"][mk]["canon"]["exact"]
+        print(f"    {mk:<28}: RawEx={rdict['low_acc_le5']['exact']}/{rdict['mid_acc_6_7']['exact']}/{rdict['high_acc_ge8']['exact']}, "
+              f"CanonEx={sdict['low_acc_le5']['exact']}/{sdict['mid_acc_6_7']['exact']}/{sdict['high_acc_ge8']['exact']} | "
+              f"WER Low={sdict['low_acc_le5']['wer_pct']:.2f}%, Mid={sdict['mid_acc_6_7']['wer_pct']:.2f}%, "
+              f"High={sdict['high_acc_ge8']['wer_pct']:.2f}% | Wtd(word)={wtd_w:.2f}% / Wtd(utt)={wtd_u:.2f}%")
     for tau, metrics in so["pronunciation_abstention_vs_acc_le6"].items():
         print(f"  Abstain (acc<=6) tau={tau:<8}: TP={metrics['tp']:2d}, FP={metrics['fp']:2d}, FN={metrics['fn']:2d}, TN={metrics['tn']:2d}, "
               f"P={metrics['precision']:.3f}, R={metrics['recall']:.3f}, F1={metrics['f1']:.3f}")

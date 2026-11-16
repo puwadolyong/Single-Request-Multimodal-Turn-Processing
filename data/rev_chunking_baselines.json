@@ -4,9 +4,70 @@
   "profiles": {
     "desktop_4t_idle": {
       "threads": 4,
-      "synthesized_extra_chunks": 0,
+      "synthesized_extra_chunks": 6,
       "cache_hit_chunks": 622,
-      "cross_binding_parity_sample": [],
+      "cross_binding_parity_sample": [
+        {
+          "chars": 11,
+          "cs_synth_ms": 332.03,
+          "py_synth_ms": 330.08,
+          "ratio": 0.994
+        },
+        {
+          "chars": 76,
+          "cs_synth_ms": 1003.58,
+          "py_synth_ms": 994.39,
+          "ratio": 0.991
+        },
+        {
+          "chars": 140,
+          "cs_synth_ms": 1712.66,
+          "py_synth_ms": 2118.38,
+          "ratio": 1.237
+        },
+        {
+          "chars": 46,
+          "cs_synth_ms": 598.16,
+          "py_synth_ms": 701.72,
+          "ratio": 1.173
+        },
+        {
+          "chars": 80,
+          "cs_synth_ms": 1026.91,
+          "py_synth_ms": 1306.81,
+          "ratio": 1.273
+        },
+        {
+          "chars": 43,
+          "cs_synth_ms": 583.74,
+          "py_synth_ms": 719.74,
+          "ratio": 1.233
+        },
+        {
+          "chars": 81,
+          "cs_synth_ms": 1121.19,
+          "py_synth_ms": 1394.56,
+          "ratio": 1.244
+        },
+        {
+          "chars": 107,
+          "cs_synth_ms": 1496.37,
+          "py_synth_ms": 1983.95,
+          "ratio": 1.326
+        },
+        {
+          "chars": 178,
+          "cs_synth_ms": 2572.17,
+          "py_synth_ms": 3381.98,
+          "ratio": 1.315
+        },
+        {
+          "chars": 254,
+          "cs_synth_ms": 3408.94,
+          "py_synth_ms": 4275.86,
+          "ratio": 1.254
+        }
+      ],
       "stratified_128": {
         "W": {
           "n": 128,
@@ -403,6 +464,19 @@
               "ttfa_p95_ms": 1883.33,
               "comp_median_ms": 6681.53,
               "comp_p95_ms": 9133.93
+            },
+            "A_post_d42": {
+              "n": 128,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 15.7,
+              "ttfa_median_ms": 1241.67,
+              "ttfa_mean_ms": 1275.78,
+              "ttfa_p95_ms": 1932.5,
+              "comp_median_ms": 6681.53,
+              "comp_p95_ms": 9254.23
             }
           },
           "disjoint_32": {
@@ -444,6 +518,19 @@
               "ttfa_p95_ms": 2875.83,
               "comp_median_ms": 12488.25,
               "comp_p95_ms": 15588.68
+            },
+            "A_post_d42": {
+              "n": 32,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 15.7,
+              "ttfa_median_ms": 1733.33,
+              "ttfa_mean_ms": 2343.23,
+              "ttfa_p95_ms": 4101.67,
+              "comp_median_ms": 13204.51,
+              "comp_p95_ms": 16991.92
             }
           }
         },
@@ -535,9 +622,70 @@
     },
     "laptop_2t_affinity4": {
       "threads": 2,
-      "synthesized_extra_chunks": 0,
+      "synthesized_extra_chunks": 6,
       "cache_hit_chunks": 622,
-      "cross_binding_parity_sample": [],
+      "cross_binding_parity_sample": [
+        {
+          "chars": 11,
+          "cs_synth_ms": 583.14,
+          "py_synth_ms": 593.71,
+          "ratio": 1.018
+        },
+        {
+          "chars": 76,
+          "cs_synth_ms": 1750.48,
+          "py_synth_ms": 1743.6,
+          "ratio": 0.996
+        },
+        {
+          "chars": 140,
+          "cs_synth_ms": 3004.64,
+          "py_synth_ms": 3005.79,
+          "ratio": 1.0
+        },
+        {
+          "chars": 46,
+          "cs_synth_ms": 1062.28,
+          "py_synth_ms": 1101.29,
+          "ratio": 1.037
+        },
+        {
+          "chars": 80,
+          "cs_synth_ms": 1815.94,
+          "py_synth_ms": 1937.71,
+          "ratio": 1.067
+        },
+        {
+          "chars": 43,
+          "cs_synth_ms": 1035.19,
+          "py_synth_ms": 1049.2,
+          "ratio": 1.014
+        },
+        {
+          "chars": 81,
+          "cs_synth_ms": 1926.38,
+          "py_synth_ms": 2107.53,
+          "ratio": 1.094
+        },
+        {
+          "chars": 107,
+          "cs_synth_ms": 2612.97,
+          "py_synth_ms": 2763.75,
+          "ratio": 1.058
+        },
+        {
+          "chars": 178,
+          "cs_synth_ms": 4385.65,
+          "py_synth_ms": 4705.4,
+          "ratio": 1.073
+        },
+        {
+          "chars": 254,
+          "cs_synth_ms": 5771.57,
+          "py_synth_ms": 5911.48,
+          "ratio": 1.024
+        }
+      ],
       "stratified_128": {
         "W": {
           "n": 128,
@@ -934,6 +1082,19 @@
               "ttfa_p95_ms": 3191.67,
               "comp_median_ms": 7449.04,
               "comp_p95_ms": 10205.63
+            },
+            "A_post_d42": {
+              "n": 128,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 16.01,
+              "ttfa_median_ms": 2191.67,
+              "ttfa_mean_ms": 2229.17,
+              "ttfa_p95_ms": 3366.67,
+              "comp_median_ms": 7504.52,
+              "comp_p95_ms": 10407.96
             }
           },
           "disjoint_32": {
@@ -975,6 +1136,19 @@
               "ttfa_p95_ms": 4244.17,
               "comp_median_ms": 13289.89,
               "comp_p95_ms": 16822.84
+            },
+            "A_post_d42": {
+              "n": 32,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 15.7,
+              "ttfa_median_ms": 2950.0,
+              "ttfa_mean_ms": 3647.92,
+              "ttfa_p95_ms": 6111.67,
+              "comp_median_ms": 14426.04,
+              "comp_p95_ms": 19361.11
             }
           }
         },
