@@ -4,70 +4,9 @@
   "profiles": {
     "desktop_4t_idle": {
       "threads": 4,
-      "synthesized_extra_chunks": 6,
-      "cache_hit_chunks": 622,
-      "cross_binding_parity_sample": [
-        {
-          "chars": 11,
-          "cs_synth_ms": 332.03,
-          "py_synth_ms": 330.08,
-          "ratio": 0.994
-        },
-        {
-          "chars": 76,
-          "cs_synth_ms": 1003.58,
-          "py_synth_ms": 994.39,
-          "ratio": 0.991
-        },
-        {
-          "chars": 140,
-          "cs_synth_ms": 1712.66,
-          "py_synth_ms": 2118.38,
-          "ratio": 1.237
-        },
-        {
-          "chars": 46,
-          "cs_synth_ms": 598.16,
-          "py_synth_ms": 701.72,
-          "ratio": 1.173
-        },
-        {
-          "chars": 80,
-          "cs_synth_ms": 1026.91,
-          "py_synth_ms": 1306.81,
-          "ratio": 1.273
-        },
-        {
-          "chars": 43,
-          "cs_synth_ms": 583.74,
-          "py_synth_ms": 719.74,
-          "ratio": 1.233
-        },
-        {
-          "chars": 81,
-          "cs_synth_ms": 1121.19,
-          "py_synth_ms": 1394.56,
-          "ratio": 1.244
-        },
-        {
-          "chars": 107,
-          "cs_synth_ms": 1496.37,
-          "py_synth_ms": 1983.95,
-          "ratio": 1.326
-        },
-        {
-          "chars": 178,
-          "cs_synth_ms": 2572.17,
-          "py_synth_ms": 3381.98,
-          "ratio": 1.315
-        },
-        {
-          "chars": 254,
-          "cs_synth_ms": 3408.94,
-          "py_synth_ms": 4275.86,
-          "ratio": 1.254
-        }
-      ],
+      "synthesized_extra_chunks": 0,
+      "cache_hit_chunks": 628,
+      "cross_binding_parity_sample": [],
       "stratified_128": {
         "W": {
           "n": 128,
@@ -452,6 +391,19 @@
               "comp_median_ms": 6740.44,
               "comp_p95_ms": 9133.93
             },
+            "Lmin_80": {
+              "n": 128,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 15.68,
+              "ttfa_median_ms": 1408.33,
+              "ttfa_mean_ms": 1446.74,
+              "ttfa_p95_ms": 1950.0,
+              "comp_median_ms": 6858.0,
+              "comp_p95_ms": 9309.12
+            },
             "A_post": {
               "n": 128,
               "affected_replies": 0,
@@ -504,6 +456,19 @@
               "ttfa_mean_ms": 1550.0,
               "ttfa_p95_ms": 2065.83,
               "comp_median_ms": 12541.05,
+              "comp_p95_ms": 15588.68
+            },
+            "Lmin_80": {
+              "n": 32,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 16.52,
+              "ttfa_median_ms": 1583.33,
+              "ttfa_mean_ms": 1668.23,
+              "ttfa_p95_ms": 2157.5,
+              "comp_median_ms": 12611.35,
               "comp_p95_ms": 15588.68
             },
             "A_post": {
@@ -562,6 +527,19 @@
               "comp_median_ms": 8450.25,
               "comp_p95_ms": 11525.18
             },
+            "Lmin_80": {
+              "n": 128,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 16.29,
+              "ttfa_median_ms": 1908.33,
+              "ttfa_mean_ms": 1949.48,
+              "ttfa_p95_ms": 2633.33,
+              "comp_median_ms": 8613.08,
+              "comp_p95_ms": 11739.23
+            },
             "A_post": {
               "n": 128,
               "affected_replies": 0,
@@ -603,6 +581,19 @@
               "comp_median_ms": 15704.0,
               "comp_p95_ms": 19475.34
             },
+            "Lmin_80": {
+              "n": 32,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 16.58,
+              "ttfa_median_ms": 2133.33,
+              "ttfa_mean_ms": 2246.88,
+              "ttfa_p95_ms": 2907.5,
+              "comp_median_ms": 15768.42,
+              "comp_p95_ms": 19475.34
+            },
             "A_post": {
               "n": 32,
               "affected_replies": 0,
@@ -622,70 +613,9 @@
     },
     "laptop_2t_affinity4": {
       "threads": 2,
-      "synthesized_extra_chunks": 6,
-      "cache_hit_chunks": 622,
-      "cross_binding_parity_sample": [
-        {
-          "chars": 11,
-          "cs_synth_ms": 583.14,
-          "py_synth_ms": 593.71,
-          "ratio": 1.018
-        },
-        {
-          "chars": 76,
-          "cs_synth_ms": 1750.48,
-          "py_synth_ms": 1743.6,
-          "ratio": 0.996
-        },
-        {
-          "chars": 140,
-          "cs_synth_ms": 3004.64,
-          "py_synth_ms": 3005.79,
-          "ratio": 1.0
-        },
-        {
-          "chars": 46,
-          "cs_synth_ms": 1062.28,
-          "py_synth_ms": 1101.29,
-          "ratio": 1.037
-        },
-        {
-          "chars": 80,
-          "cs_synth_ms": 1815.94,
-          "py_synth_ms": 1937.71,
-          "ratio": 1.067
-        },
-        {
-          "chars": 43,
-          "cs_synth_ms": 1035.19,
-          "py_synth_ms": 1049.2,
-          "ratio": 1.014
-        },
-        {
-          "chars": 81,
-          "cs_synth_ms": 1926.38,
-          "py_synth_ms": 2107.53,
-          "ratio": 1.094
-        },
-        {
-          "chars": 107,
-          "cs_synth_ms": 2612.97,
-          "py_synth_ms": 2763.75,
-          "ratio": 1.058
-        },
-        {
-          "chars": 178,
-          "cs_synth_ms": 4385.65,
-          "py_synth_ms": 4705.4,
-          "ratio": 1.073
-        },
-        {
-          "chars": 254,
-          "cs_synth_ms": 5771.57,
-          "py_synth_ms": 5911.48,
-          "ratio": 1.024
-        }
-      ],
+      "synthesized_extra_chunks": 0,
+      "cache_hit_chunks": 628,
+      "cross_binding_parity_sample": [],
       "stratified_128": {
         "W": {
           "n": 128,
@@ -1070,6 +1000,19 @@
               "comp_median_ms": 7543.2,
               "comp_p95_ms": 10205.63
             },
+            "Lmin_80": {
+              "n": 128,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 15.74,
+              "ttfa_median_ms": 2483.33,
+              "ttfa_mean_ms": 2532.94,
+              "ttfa_p95_ms": 3410.0,
+              "comp_median_ms": 7845.12,
+              "comp_p95_ms": 10609.3
+            },
             "A_post": {
               "n": 128,
               "affected_replies": 0,
@@ -1122,6 +1065,19 @@
               "ttfa_mean_ms": 2446.88,
               "ttfa_p95_ms": 3155.83,
               "comp_median_ms": 13461.88,
+              "comp_p95_ms": 16822.84
+            },
+            "Lmin_80": {
+              "n": 32,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 16.52,
+              "ttfa_median_ms": 2666.67,
+              "ttfa_mean_ms": 2627.08,
+              "ttfa_p95_ms": 3247.5,
+              "comp_median_ms": 13640.01,
               "comp_p95_ms": 16822.84
             },
             "A_post": {
@@ -1180,6 +1136,19 @@
               "comp_median_ms": 9549.92,
               "comp_p95_ms": 12987.2
             },
+            "Lmin_80": {
+              "n": 128,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 16.29,
+              "ttfa_median_ms": 3350.0,
+              "ttfa_mean_ms": 3417.58,
+              "ttfa_p95_ms": 4598.33,
+              "comp_median_ms": 10006.35,
+              "comp_p95_ms": 13486.31
+            },
             "A_post": {
               "n": 128,
               "affected_replies": 0,
@@ -1219,6 +1188,19 @@
               "ttfa_mean_ms": 3299.48,
               "ttfa_p95_ms": 4258.33,
               "comp_median_ms": 16958.29,
+              "comp_p95_ms": 21145.34
+            },
+            "Lmin_80": {
+              "n": 32,
+              "affected_replies": 0,
+              "affected_pct": 0.0,
+              "total_gaps_over_20ms": 0,
+              "max_reply_stall_ms": 0.0,
+              "max_single_gap_ms": 16.58,
+              "ttfa_median_ms": 3591.67,
+              "ttfa_mean_ms": 3543.23,
+              "ttfa_p95_ms": 4377.5,
+              "comp_median_ms": 17163.98,
               "comp_p95_ms": 21145.34
             },
             "A_post": {

@@ -345,8 +345,8 @@ def main():
         # Evaluate robustness of fixed L_min thresholds vs A_post under faster speaking rate (1.30 vs 1.05) and 1.35x CPU slowdown
         sens_res = {}
         for cond_lbl, synth_scale, speed_scale, pols in [
-            ("speed_1.30x", 1.0, 1.30 / 1.05, ("Lmin_40", "Lmin_60", "A_post", "A_post_d42")),
-            ("cpu_slow_1.35x", 1.35, 1.0, ("Lmin_40", "Lmin_60", "A_post")),
+            ("speed_1.30x", 1.0, 1.30 / 1.05, ("Lmin_40", "Lmin_60", "Lmin_80", "A_post", "A_post_d42")),
+            ("cpu_slow_1.35x", 1.35, 1.0, ("Lmin_40", "Lmin_60", "Lmin_80", "A_post")),
         ]:
             scaled_cache = {k: (v[0] * synth_scale, v[1] / speed_scale, v[2]) for k, v in cache.items()}
             c_map = {}

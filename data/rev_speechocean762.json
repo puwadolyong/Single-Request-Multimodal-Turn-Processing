@@ -88,17 +88,23 @@
       "low_acc_le5": {
         "n": 33,
         "convia_score_mean": 57.12,
-        "convia_score_med": 52
+        "convia_score_med": 52,
+        "adults_n": 16,
+        "youth_n": 17
       },
       "mid_acc_6_7": {
         "n": 33,
         "convia_score_mean": 70.94,
-        "convia_score_med": 76
+        "convia_score_med": 76,
+        "adults_n": 16,
+        "youth_n": 17
       },
       "high_acc_ge8": {
         "n": 34,
         "convia_score_mean": 83.03,
-        "convia_score_med": 93.0
+        "convia_score_med": 93.0,
+        "adults_n": 17,
+        "youth_n": 17
       }
     }
   },

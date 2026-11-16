@@ -224,15 +224,19 @@ def main():
     assert l2["A_post"]["affected_replies"] == 0 and l2["CausalOnline"]["affected_replies"] == 0
     sens = cb["profiles"]["laptop_2t_affinity4"]["rate_and_slowdown_sensitivity"]
     assert sens["speed_1.30x"]["stratified_128"]["Lmin_40"]["affected_replies"] == 4
+    assert sens["speed_1.30x"]["stratified_128"]["Lmin_80"]["affected_replies"] == 0
     assert sens["speed_1.30x"]["stratified_128"]["A_post"]["affected_replies"] == 0
     assert sens["speed_1.30x"]["stratified_128"]["A_post_d42"]["affected_replies"] == 0
     assert sens["cpu_slow_1.35x"]["stratified_128"]["Lmin_40"]["affected_replies"] == 4
+    assert sens["cpu_slow_1.35x"]["stratified_128"]["Lmin_80"]["affected_replies"] == 0
     assert sens["cpu_slow_1.35x"]["stratified_128"]["A_post"]["affected_replies"] == 0
     print(f"  Sensitivity verified on 2t: speed 1.30x -> Lmin_40={sens['speed_1.30x']['stratified_128']['Lmin_40']['affected_replies']}/128, "
+          f"Lmin_80={sens['speed_1.30x']['stratified_128']['Lmin_80']['affected_replies']}/128 ({sens['speed_1.30x']['stratified_128']['Lmin_80']['ttfa_median_ms']:.1f} ms), "
           f"A_post(d=52)={sens['speed_1.30x']['stratified_128']['A_post']['affected_replies']}/128, "
           f"A_post(d=42)={sens['speed_1.30x']['stratified_128']['A_post_d42']['affected_replies']}/128; "
           f"1.35x CPU -> Lmin_40={sens['cpu_slow_1.35x']['stratified_128']['Lmin_40']['affected_replies']}/128, "
-          f"A_post={sens['cpu_slow_1.35x']['stratified_128']['A_post']['affected_replies']}/128.")
+          f"Lmin_80={sens['cpu_slow_1.35x']['stratified_128']['Lmin_80']['affected_replies']}/128 ({sens['cpu_slow_1.35x']['stratified_128']['Lmin_80']['ttfa_median_ms']:.1f} ms), "
+          f"A_post={sens['cpu_slow_1.35x']['stratified_128']['A_post']['affected_replies']}/128 ({sens['cpu_slow_1.35x']['stratified_128']['A_post']['ttfa_median_ms']:.1f} ms).")
 
     # ------------------------------------------------------------------
     # 3. Experiment 2 Latency, WER, McNemar & Utterance Inventory
@@ -345,8 +349,10 @@ def main():
     corr = so["human_score_alignment"]
     print(f"  Score vs Human Experts (Spearman): acc={corr['spearman_vs_accuracy']:.4f}, "
           f"fluency={corr['spearman_vs_fluency']:.4f}, total={corr['spearman_vs_total']:.4f}")
+    assert sum(v["adults_n"] for v in corr["strata"].values()) == so["adults_n"]
+    assert sum(v["youth_n"] for v in corr["strata"].values()) == so["youth_n"]
     for st, vals in corr["strata"].items():
-        print(f"  Stratum {st:<14}: n={vals['n']}, convia mean={vals['convia_score_mean']:.2f}, med={vals['convia_score_med']:.1f}")
+        print(f"  Stratum {st:<14}: n={vals['n']} (adults={vals['adults_n']}, youth={vals['youth_n']}), convia mean={vals['convia_score_mean']:.2f}, med={vals['convia_score_med']:.1f}")
     print("  Per-stratum raw & canonical WER + N=2,500 prevalence-weighted WER (word vs utterance):")
     for mk, sdict in so["per_stratum_canon_wer"].items():
         rdict = so["per_stratum_raw_wer"][mk]
