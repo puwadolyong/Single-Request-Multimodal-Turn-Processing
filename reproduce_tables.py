@@ -57,6 +57,33 @@ def exact_mcnemar_p(n10, n01):
     return min(1.0, 2.0 * p_tail)
 
 
+def clopper_pearson_95(k, n):
+    """Exact two-sided 95% Clopper-Pearson binomial CI in percent."""
+    if k == 0:
+        return 0.0, round((1.0 - (0.025 ** (1.0 / n))) * 100.0, 2)
+    if k == n:
+        return round((0.025 ** (1.0 / n)) * 100.0, 2), 100.0
+    a, b = k / n, 1.0
+    for _ in range(60):
+        m = 0.5 * (a + b)
+        p = sum(math.comb(n, i) * (m ** i) * ((1.0 - m) ** (n - i)) for i in range(0, k + 1))
+        if p > 0.025:
+            a = m
+        else:
+            b = m
+    hi = 0.5 * (a + b)
+    a, b = 0.0, k / n
+    for _ in range(60):
+        m = 0.5 * (a + b)
+        p = sum(math.comb(n, i) * (m ** i) * ((1.0 - m) ** (n - i)) for i in range(k, n + 1))
+        if p < 0.025:
+            a = m
+        else:
+            b = m
+    lo = 0.5 * (a + b)
+    return round(lo * 100.0, 2), round(hi * 100.0, 2)
+
+
 def header(title):
     print("\n" + "=" * 78)
     print(title)
@@ -212,6 +239,12 @@ def main():
                 continue
             print(f"    {pol:<13}: TTFA={d['ttfa_median_ms']:7.1f}, Aff={d['affected_replies']:2d}/32 ({d['affected_pct']:5.2f}%), maxStall={d['max_reply_stall_ms']:6.1f}")
 
+    cp_0_484 = clopper_pearson_95(0, 484)
+    cp_0_128 = clopper_pearson_95(0, 128)
+    cp_0_32 = clopper_pearson_95(0, 32)
+    assert cp_0_484 == (0.0, 0.76) and cp_0_128 == (0.0, 2.84) and cp_0_32 == (0.0, 10.89)
+    print(f"  Zero-stall 95% Clopper-Pearson upper bounds: N=484 -> {cp_0_484[1]:.2f}%, N=128 -> {cp_0_128[1]:.2f}%, n=32 -> {cp_0_32[1]:.2f}%")
+
     # Assert exact reconciliation between Table 5 and Table 6 plus rate/load sensitivity
     d4 = cb["profiles"]["desktop_4t_idle"]["stratified_128"]
     l2 = cb["profiles"]["laptop_2t_affinity4"]["stratified_128"]
@@ -230,13 +263,32 @@ def main():
     assert sens["cpu_slow_1.35x"]["stratified_128"]["Lmin_40"]["affected_replies"] == 4
     assert sens["cpu_slow_1.35x"]["stratified_128"]["Lmin_80"]["affected_replies"] == 0
     assert sens["cpu_slow_1.35x"]["stratified_128"]["A_post"]["affected_replies"] == 0
-    print(f"  Sensitivity verified on 2t: speed 1.30x -> Lmin_40={sens['speed_1.30x']['stratified_128']['Lmin_40']['affected_replies']}/128, "
+    mc_spd = sens["speed_1.30x"]["stratified_128"]["mcnemar_vs_A_post"]["Lmin_40_vs_A_post"]
+    mc_cpu = sens["cpu_slow_1.35x"]["stratified_128"]["mcnemar_vs_A_post"]["Lmin_40_vs_A_post"]
+    assert abs(mc_spd["exact_mcnemar_p"] - exact_mcnemar_p(4, 0)) < 1e-6 and abs(mc_spd["exact_mcnemar_p"] - 0.125) < 1e-6
+    assert abs(mc_cpu["exact_mcnemar_p"] - exact_mcnemar_p(4, 0)) < 1e-6
+    print(f"  Sensitivity verified on 2t: speed 1.30x -> Lmin_40={sens['speed_1.30x']['stratified_128']['Lmin_40']['affected_replies']}/128 "
+          f"(CI {sens['speed_1.30x']['stratified_128']['Lmin_40']['affected_ci95_pct']}, McNemar vs A_post p={mc_spd['exact_mcnemar_p']:.3f}), "
           f"Lmin_80={sens['speed_1.30x']['stratified_128']['Lmin_80']['affected_replies']}/128 ({sens['speed_1.30x']['stratified_128']['Lmin_80']['ttfa_median_ms']:.1f} ms), "
           f"A_post(d=52)={sens['speed_1.30x']['stratified_128']['A_post']['affected_replies']}/128, "
           f"A_post(d=42)={sens['speed_1.30x']['stratified_128']['A_post_d42']['affected_replies']}/128; "
-          f"1.35x CPU -> Lmin_40={sens['cpu_slow_1.35x']['stratified_128']['Lmin_40']['affected_replies']}/128, "
+          f"1.35x CPU -> Lmin_40={sens['cpu_slow_1.35x']['stratified_128']['Lmin_40']['affected_replies']}/128 (p={mc_cpu['exact_mcnemar_p']:.3f}), "
           f"Lmin_80={sens['cpu_slow_1.35x']['stratified_128']['Lmin_80']['affected_replies']}/128 ({sens['cpu_slow_1.35x']['stratified_128']['Lmin_80']['ttfa_median_ms']:.1f} ms), "
           f"A_post={sens['cpu_slow_1.35x']['stratified_128']['A_post']['affected_replies']}/128 ({sens['cpu_slow_1.35x']['stratified_128']['A_post']['ttfa_median_ms']:.1f} ms).")
+
+    e2e24 = json.loads((DATA / "rev_live_client_e2e_24.json").read_text(encoding="utf-8"))
+    turns24 = e2e24["turns"]
+    assert len(turns24) == 24 and all(t["jsonOk"] for t in turns24)
+    live_wo = [t["liveWaveOutOnsetMs"] for t in turns24]
+    recon_pr = [t["reconWithProxyFormulaMs"] for t in turns24]
+    recon_up = [t["reconFormulaMs"] for t in turns24]
+    diff_pr = [t["diffLiveMinusProxyReconMs"] for t in turns24]
+    diff_up = [t["diffLiveMinusReconMs"] for t in turns24]
+    assert abs(med(diff_pr)) < 25.0 and abs(med(diff_up)) < 25.0
+    print(f"\nLive continuous push-to-talk-to-waveOutWrite E2E validation (n={len(turns24)}, 24/24 valid JSON):")
+    print(f"  liveWaveOutOnsetMs:      med={med(live_wo):.1f} ms (P95={percentile(live_wo, 0.95):.1f})")
+    print(f"  reconWithProxyFormulaMs: med={med(recon_pr):.1f} ms (P95={percentile(recon_pr, 0.95):.1f}), paired diff med={med(diff_pr):.1f} ms")
+    print(f"  reconFormulaMs (upstr):  med={med(recon_up):.1f} ms (P95={percentile(recon_up, 0.95):.1f}), paired diff med={med(diff_up):.1f} ms")
 
     # ------------------------------------------------------------------
     # 3. Experiment 2 Latency, WER, McNemar & Utterance Inventory

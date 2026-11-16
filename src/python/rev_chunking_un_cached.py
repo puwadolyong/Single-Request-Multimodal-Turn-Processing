@@ -11,7 +11,6 @@ import os
 import statistics
 import sys
 import time
-import sherpa_onnx
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import exp_common
@@ -55,6 +54,7 @@ def load_csharp_cache(path: str):
 
 
 def make_tts(num_threads: int):
+    import sherpa_onnx
     cfg = sherpa_onnx.OfflineTtsConfig(
         model=sherpa_onnx.OfflineTtsModelConfig(
             kokoro=sherpa_onnx.OfflineTtsKokoroModelConfig(
@@ -196,6 +196,45 @@ def pct(vals, q: float) -> float:
     return s[lo] + (s[hi] - s[lo]) * (pos - lo)
 
 
+def clopper_pearson_95(k: int, n: int):
+    """Exact two-sided 95% Clopper-Pearson confidence interval in percent."""
+    if n <= 0:
+        return [0.0, 0.0]
+    if k == 0:
+        lo, hi = 0.0, 1.0 - (0.025 ** (1.0 / n))
+    elif k == n:
+        lo, hi = 0.025 ** (1.0 / n), 1.0
+    else:
+        a, b = k / n, 1.0
+        for _ in range(60):
+            m = 0.5 * (a + b)
+            p = sum(math.comb(n, i) * (m ** i) * ((1.0 - m) ** (n - i)) for i in range(0, k + 1))
+            if p > 0.025:
+                a = m
+            else:
+                b = m
+        hi = 0.5 * (a + b)
+        a, b = 0.0, k / n
+        for _ in range(60):
+            m = 0.5 * (a + b)
+            p = sum(math.comb(n, i) * (m ** i) * ((1.0 - m) ** (n - i)) for i in range(k, n + 1))
+            if p < 0.025:
+                a = m
+            else:
+                b = m
+        lo = 0.5 * (a + b)
+    return [round(lo * 100.0, 2), round(hi * 100.0, 2)]
+
+
+def exact_mcnemar_p(n10: int, n01: int) -> float:
+    k = n10 + n01
+    if k == 0:
+        return 1.0
+    m = min(n10, n01)
+    p_tail = sum(math.comb(k, i) for i in range(m + 1)) * (0.5 ** k)
+    return min(1.0, 2.0 * p_tail)
+
+
 def summarize_metrics(records):
     n = len(records)
     ttfas = sorted(r["ttfa_ms"] for r in records)
@@ -209,6 +248,7 @@ def summarize_metrics(records):
         "n": n,
         "affected_replies": aff,
         "affected_pct": round(aff / n * 100.0, 2),
+        "affected_ci95_pct": clopper_pearson_95(aff, n),
         "total_gaps_over_20ms": tot_gaps,
         "max_reply_stall_ms": round(max_reply_stall, 2),
         "max_single_gap_ms": round(max_single_g, 2),
@@ -352,10 +392,20 @@ def main():
             c_map = {}
             for sub_lbl, items, plans in [("stratified_128", strat_replies, strat_plans), ("disjoint_32", disjoint_pairs, pair_plans)]:
                 s_map = {}
+                rec_vecs = {}
                 for pol in pols:
                     recs = [eval_schedule([scaled_cache[c] for c in plans[(rid, pol)]], pre_buffer_ms=0.0, use_60hz=True)
                             for rid, _sc, _rep, _ss in items]
+                    rec_vecs[pol] = [1 if r["gaps_over_20"] > 0 else 0 for r in recs]
                     s_map[pol] = summarize_metrics(recs)
+                mc_map = {}
+                a_vec = rec_vecs["A_post"]
+                for pol in ("Lmin_40", "Lmin_60", "Lmin_80"):
+                    p_vec = rec_vecs[pol]
+                    n10 = sum(1 for pv, av in zip(p_vec, a_vec) if pv == 1 and av == 0)
+                    n01 = sum(1 for pv, av in zip(p_vec, a_vec) if pv == 0 and av == 1)
+                    mc_map[f"{pol}_vs_A_post"] = {"n10": n10, "n01": n01, "exact_mcnemar_p": round(exact_mcnemar_p(n10, n01), 6)}
+                s_map["mcnemar_vs_A_post"] = mc_map
                 c_map[sub_lbl] = s_map
             sens_res[cond_lbl] = c_map
 

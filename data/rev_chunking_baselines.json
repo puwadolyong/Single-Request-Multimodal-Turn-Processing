@@ -12,6 +12,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 0.0,
@@ -25,6 +29,10 @@
           "n": 128,
           "affected_replies": 20,
           "affected_pct": 15.62,
+          "affected_ci95_pct": [
+            9.81,
+            23.09
+          ],
           "total_gaps_over_20ms": 20,
           "max_reply_stall_ms": 487.0,
           "max_single_gap_ms": 481.12,
@@ -38,6 +46,10 @@
           "n": 128,
           "affected_replies": 10,
           "affected_pct": 7.81,
+          "affected_ci95_pct": [
+            3.81,
+            13.9
+          ],
           "total_gaps_over_20ms": 10,
           "max_reply_stall_ms": 287.0,
           "max_single_gap_ms": 281.12,
@@ -51,6 +63,10 @@
           "n": 128,
           "affected_replies": 3,
           "affected_pct": 2.34,
+          "affected_ci95_pct": [
+            0.49,
+            6.7
+          ],
           "total_gaps_over_20ms": 3,
           "max_reply_stall_ms": 87.0,
           "max_single_gap_ms": 81.12,
@@ -64,6 +80,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.21,
@@ -77,6 +97,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.21,
@@ -90,6 +114,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.21,
@@ -103,6 +131,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -116,6 +148,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -129,6 +165,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -142,6 +182,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -155,6 +199,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 15.54,
@@ -168,6 +216,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 15.38,
@@ -181,6 +233,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -194,6 +250,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -207,6 +267,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -222,6 +286,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 0.0,
@@ -235,6 +303,10 @@
           "n": 32,
           "affected_replies": 5,
           "affected_pct": 15.62,
+          "affected_ci95_pct": [
+            5.28,
+            32.79
+          ],
           "total_gaps_over_20ms": 5,
           "max_reply_stall_ms": 510.0,
           "max_single_gap_ms": 470.79,
@@ -248,6 +320,10 @@
           "n": 32,
           "affected_replies": 2,
           "affected_pct": 6.25,
+          "affected_ci95_pct": [
+            0.77,
+            20.81
+          ],
           "total_gaps_over_20ms": 2,
           "max_reply_stall_ms": 110.0,
           "max_single_gap_ms": 70.79,
@@ -261,6 +337,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.42,
@@ -274,6 +354,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.42,
@@ -287,6 +371,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.63,
@@ -300,6 +388,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.58,
@@ -313,6 +405,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.58,
@@ -326,6 +422,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.0,
@@ -339,6 +439,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -352,6 +456,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -369,6 +477,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 15.68,
@@ -382,6 +494,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 15.68,
@@ -395,6 +511,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 15.68,
@@ -408,6 +528,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 15.7,
@@ -421,6 +545,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 15.7,
@@ -429,6 +557,23 @@
               "ttfa_p95_ms": 1932.5,
               "comp_median_ms": 6681.53,
               "comp_p95_ms": 9254.23
+            },
+            "mcnemar_vs_A_post": {
+              "Lmin_40_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_60_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_80_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              }
             }
           },
           "disjoint_32": {
@@ -436,6 +581,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.64,
@@ -449,6 +598,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.52,
@@ -462,6 +615,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.52,
@@ -475,6 +632,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.55,
@@ -488,6 +649,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 15.7,
@@ -496,6 +661,23 @@
               "ttfa_p95_ms": 4101.67,
               "comp_median_ms": 13204.51,
               "comp_p95_ms": 16991.92
+            },
+            "mcnemar_vs_A_post": {
+              "Lmin_40_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_60_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_80_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              }
             }
           }
         },
@@ -505,6 +687,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -518,6 +704,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -531,6 +721,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -544,6 +738,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -552,6 +750,23 @@
               "ttfa_p95_ms": 2533.33,
               "comp_median_ms": 8349.35,
               "comp_p95_ms": 11525.18
+            },
+            "mcnemar_vs_A_post": {
+              "Lmin_40_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_60_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_80_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              }
             }
           },
           "disjoint_32": {
@@ -559,6 +774,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.63,
@@ -572,6 +791,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.58,
@@ -585,6 +808,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.58,
@@ -598,6 +825,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -606,6 +837,23 @@
               "ttfa_p95_ms": 3880.83,
               "comp_median_ms": 15604.5,
               "comp_p95_ms": 19475.34
+            },
+            "mcnemar_vs_A_post": {
+              "Lmin_40_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_60_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_80_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              }
             }
           }
         }
@@ -621,6 +869,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 0.0,
@@ -634,6 +886,10 @@
           "n": 128,
           "affected_replies": 75,
           "affected_pct": 58.59,
+          "affected_ci95_pct": [
+            49.55,
+            67.23
+          ],
           "total_gaps_over_20ms": 75,
           "max_reply_stall_ms": 1622.38,
           "max_single_gap_ms": 1614.46,
@@ -647,6 +903,10 @@
           "n": 128,
           "affected_replies": 70,
           "affected_pct": 54.69,
+          "affected_ci95_pct": [
+            45.65,
+            63.5
+          ],
           "total_gaps_over_20ms": 70,
           "max_reply_stall_ms": 1422.38,
           "max_single_gap_ms": 1414.46,
@@ -660,6 +920,10 @@
           "n": 128,
           "affected_replies": 52,
           "affected_pct": 40.62,
+          "affected_ci95_pct": [
+            32.04,
+            49.66
+          ],
           "total_gaps_over_20ms": 52,
           "max_reply_stall_ms": 1222.38,
           "max_single_gap_ms": 1214.46,
@@ -673,6 +937,10 @@
           "n": 128,
           "affected_replies": 38,
           "affected_pct": 29.69,
+          "affected_ci95_pct": [
+            21.94,
+            38.4
+          ],
           "total_gaps_over_20ms": 38,
           "max_reply_stall_ms": 1022.38,
           "max_single_gap_ms": 1014.46,
@@ -686,6 +954,10 @@
           "n": 128,
           "affected_replies": 18,
           "affected_pct": 14.06,
+          "affected_ci95_pct": [
+            8.55,
+            21.31
+          ],
           "total_gaps_over_20ms": 18,
           "max_reply_stall_ms": 822.38,
           "max_single_gap_ms": 814.46,
@@ -699,6 +971,10 @@
           "n": 128,
           "affected_replies": 10,
           "affected_pct": 7.81,
+          "affected_ci95_pct": [
+            3.81,
+            13.9
+          ],
           "total_gaps_over_20ms": 10,
           "max_reply_stall_ms": 622.38,
           "max_single_gap_ms": 614.46,
@@ -712,6 +988,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -725,6 +1005,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -738,6 +1022,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -751,6 +1039,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -764,6 +1056,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 15.33,
@@ -777,6 +1073,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 15.33,
@@ -790,6 +1090,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -803,6 +1107,10 @@
           "n": 128,
           "affected_replies": 1,
           "affected_pct": 0.78,
+          "affected_ci95_pct": [
+            0.02,
+            4.28
+          ],
           "total_gaps_over_20ms": 1,
           "max_reply_stall_ms": 728.96,
           "max_single_gap_ms": 728.96,
@@ -816,6 +1124,10 @@
           "n": 128,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            2.84
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -831,6 +1143,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 0.0,
@@ -844,6 +1160,10 @@
           "n": 32,
           "affected_replies": 19,
           "affected_pct": 59.38,
+          "affected_ci95_pct": [
+            40.64,
+            76.3
+          ],
           "total_gaps_over_20ms": 19,
           "max_reply_stall_ms": 1510.0,
           "max_single_gap_ms": 1470.79,
@@ -857,6 +1177,10 @@
           "n": 32,
           "affected_replies": 7,
           "affected_pct": 21.88,
+          "affected_ci95_pct": [
+            9.28,
+            39.97
+          ],
           "total_gaps_over_20ms": 7,
           "max_reply_stall_ms": 1110.0,
           "max_single_gap_ms": 1070.79,
@@ -870,6 +1194,10 @@
           "n": 32,
           "affected_replies": 5,
           "affected_pct": 15.62,
+          "affected_ci95_pct": [
+            5.28,
+            32.79
+          ],
           "total_gaps_over_20ms": 5,
           "max_reply_stall_ms": 710.0,
           "max_single_gap_ms": 670.79,
@@ -883,6 +1211,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.42,
@@ -896,6 +1228,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.63,
@@ -909,6 +1245,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.58,
@@ -922,6 +1262,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.58,
@@ -935,6 +1279,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.0,
@@ -948,6 +1296,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -961,6 +1313,10 @@
           "n": 32,
           "affected_replies": 0,
           "affected_pct": 0.0,
+          "affected_ci95_pct": [
+            0.0,
+            10.89
+          ],
           "total_gaps_over_20ms": 0,
           "max_reply_stall_ms": 0.0,
           "max_single_gap_ms": 16.29,
@@ -978,6 +1334,10 @@
               "n": 128,
               "affected_replies": 4,
               "affected_pct": 3.12,
+              "affected_ci95_pct": [
+                0.86,
+                7.81
+              ],
               "total_gaps_over_20ms": 4,
               "max_reply_stall_ms": 452.93,
               "max_single_gap_ms": 452.93,
@@ -991,6 +1351,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.01,
@@ -1004,6 +1368,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 15.74,
@@ -1017,6 +1385,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.01,
@@ -1030,6 +1402,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.01,
@@ -1038,6 +1414,23 @@
               "ttfa_p95_ms": 3366.67,
               "comp_median_ms": 7504.52,
               "comp_p95_ms": 10407.96
+            },
+            "mcnemar_vs_A_post": {
+              "Lmin_40_vs_A_post": {
+                "n10": 4,
+                "n01": 0,
+                "exact_mcnemar_p": 0.125
+              },
+              "Lmin_60_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_80_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              }
             }
           },
           "disjoint_32": {
@@ -1045,6 +1438,10 @@
               "n": 32,
               "affected_replies": 2,
               "affected_pct": 6.25,
+              "affected_ci95_pct": [
+                0.77,
+                20.81
+              ],
               "total_gaps_over_20ms": 2,
               "max_reply_stall_ms": 504.96,
               "max_single_gap_ms": 468.04,
@@ -1058,6 +1455,10 @@
               "n": 32,
               "affected_replies": 1,
               "affected_pct": 3.12,
+              "affected_ci95_pct": [
+                0.08,
+                16.22
+              ],
               "total_gaps_over_20ms": 1,
               "max_reply_stall_ms": 85.57,
               "max_single_gap_ms": 70.77,
@@ -1071,6 +1472,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.52,
@@ -1084,6 +1489,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.55,
@@ -1097,6 +1506,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 15.7,
@@ -1105,6 +1518,23 @@
               "ttfa_p95_ms": 6111.67,
               "comp_median_ms": 14426.04,
               "comp_p95_ms": 19361.11
+            },
+            "mcnemar_vs_A_post": {
+              "Lmin_40_vs_A_post": {
+                "n10": 2,
+                "n01": 0,
+                "exact_mcnemar_p": 0.5
+              },
+              "Lmin_60_vs_A_post": {
+                "n10": 1,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_80_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              }
             }
           }
         },
@@ -1114,6 +1544,10 @@
               "n": 128,
               "affected_replies": 4,
               "affected_pct": 3.12,
+              "affected_ci95_pct": [
+                0.86,
+                7.81
+              ],
               "total_gaps_over_20ms": 4,
               "max_reply_stall_ms": 869.5,
               "max_single_gap_ms": 869.5,
@@ -1127,6 +1561,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -1140,6 +1578,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -1153,6 +1595,10 @@
               "n": 128,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                2.84
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -1161,6 +1607,23 @@
               "ttfa_p95_ms": 4312.5,
               "comp_median_ms": 9438.69,
               "comp_p95_ms": 12987.2
+            },
+            "mcnemar_vs_A_post": {
+              "Lmin_40_vs_A_post": {
+                "n10": 4,
+                "n01": 0,
+                "exact_mcnemar_p": 0.125
+              },
+              "Lmin_60_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_80_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              }
             }
           },
           "disjoint_32": {
@@ -1168,6 +1631,10 @@
               "n": 32,
               "affected_replies": 2,
               "affected_pct": 6.25,
+              "affected_ci95_pct": [
+                0.77,
+                20.81
+              ],
               "total_gaps_over_20ms": 2,
               "max_reply_stall_ms": 948.21,
               "max_single_gap_ms": 923.12,
@@ -1181,6 +1648,10 @@
               "n": 32,
               "affected_replies": 1,
               "affected_pct": 3.12,
+              "affected_ci95_pct": [
+                0.08,
+                16.22
+              ],
               "total_gaps_over_20ms": 1,
               "max_reply_stall_ms": 409.92,
               "max_single_gap_ms": 404.29,
@@ -1194,6 +1665,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.58,
@@ -1207,6 +1682,10 @@
               "n": 32,
               "affected_replies": 0,
               "affected_pct": 0.0,
+              "affected_ci95_pct": [
+                0.0,
+                10.89
+              ],
               "total_gaps_over_20ms": 0,
               "max_reply_stall_ms": 0.0,
               "max_single_gap_ms": 16.29,
@@ -1215,6 +1694,23 @@
               "ttfa_p95_ms": 5722.5,
               "comp_median_ms": 16663.27,
               "comp_p95_ms": 21145.34
+            },
+            "mcnemar_vs_A_post": {
+              "Lmin_40_vs_A_post": {
+                "n10": 2,
+                "n01": 0,
+                "exact_mcnemar_p": 0.5
+              },
+              "Lmin_60_vs_A_post": {
+                "n10": 1,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              },
+              "Lmin_80_vs_A_post": {
+                "n10": 0,
+                "n01": 0,
+                "exact_mcnemar_p": 1.0
+              }
             }
           }
         }

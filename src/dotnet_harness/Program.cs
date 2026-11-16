@@ -48,6 +48,9 @@ internal static class Program
         if (mode is "realtime")
             await RunRealtimeWaveOutValidation(resultsDir);
 
+        if (mode is "live-e2e")
+            await RunLiveEndToEndWaveOutValidationAsync(paperDir, resultsDir);
+
         return 0;
     }
 
@@ -322,6 +325,12 @@ internal static class Program
 
     [DllImport("winmm.dll")]
     private static extern int waveOutClose(IntPtr hWaveOut);
+
+    [DllImport("winmm.dll")]
+    private static extern uint timeBeginPeriod(uint uPeriod);
+
+    [DllImport("winmm.dll")]
+    private static extern uint timeEndPeriod(uint uPeriod);
 
     [StructLayout(LayoutKind.Sequential)]
     private struct WaveFormatEx
@@ -1010,6 +1019,412 @@ internal static class Program
 
         string outPath = Path.Combine(resultsDir, "rev_realtime_60hz_validation.json");
         File.WriteAllText(outPath, JsonConvert.SerializeObject(rtResults, Formatting.Indented));
+        Console.WriteLine($"  Wrote {outPath}");
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // 5. LIVE CONTINUOUS PUSH-TO-TALK-TO-WAVEOUT E2E VALIDATION (n = 24)
+    // ──────────────────────────────────────────────────────────────
+    private static Dictionary<string, double> ComputeBenchStats(IReadOnlyList<double> raw)
+    {
+        var s = raw.OrderBy(x => x).ToArray();
+        int n = s.Length;
+        double Quantile(double q)
+        {
+            if (n == 0) return 0;
+            if (n == 1) return s[0];
+            double idx = q * (n - 1);
+            int lo = (int)Math.Floor(idx), hi = (int)Math.Ceiling(idx);
+            return lo == hi ? s[lo] : s[lo] + (s[hi] - s[lo]) * (idx - lo);
+        }
+        double mean = s.Average();
+        double sd = n > 1 ? Math.Sqrt(s.Sum(x => (x - mean) * (x - mean)) / (n - 1)) : 0.0;
+        double p25 = Quantile(0.25), p50 = Quantile(0.50), p75 = Quantile(0.75);
+        int p95Idx = Math.Min(n - 1, (int)(0.95 * n));
+        return new Dictionary<string, double>
+        {
+            ["n"] = n,
+            ["median"] = Math.Round(p50, 2),
+            ["iqr"] = Math.Round(p75 - p25, 2),
+            ["p25"] = Math.Round(p25, 2),
+            ["p75"] = Math.Round(p75, 2),
+            ["mean"] = Math.Round(mean, 2),
+            ["sd"] = Math.Round(sd, 2),
+            ["p95"] = Math.Round(s[p95Idx], 2),
+            ["min"] = Math.Round(s[0], 2),
+            ["max"] = Math.Round(s[n - 1], 2)
+        };
+    }
+
+    private static async Task RunLiveEndToEndWaveOutValidationAsync(string paperDir, string resultsDir)
+    {
+        Console.WriteLine("=== [5/5] Running Live Continuous Push-to-Talk-to-waveOutWrite E2E Validation (n=24) ===");
+        string keyPath = Path.Combine(ConviaRoot, "gemini.key");
+        string apiKey = File.Exists(keyPath)
+            ? File.ReadAllText(keyPath, Encoding.UTF8).Trim()
+            : (Environment.GetEnvironmentVariable("GEMINI_API_KEY") ?? "").Trim();
+        if (string.IsNullOrEmpty(apiKey))
+            throw new InvalidOperationException("Gemini API key not found for live-e2e validation.");
+
+        string archiveDir = File.Exists(Path.Combine(paperDir, "prompts", "scenarios.json"))
+            ? paperDir
+            : Path.Combine(paperDir, "reproducibility_archive");
+        var scenariosObj = JObject.Parse(File.ReadAllText(Path.Combine(archiveDir, "prompts", "scenarios.json"), Encoding.UTF8));
+        var schemaObj = JObject.Parse(File.ReadAllText(Path.Combine(archiveDir, "schemas", "CoachTurnSchema.json"), Encoding.UTF8));
+        string promptBody = File.ReadAllText(Path.Combine(archiveDir, "prompts", "coach_prompt_body.txt"), Encoding.UTF8)
+            .Replace("{TIPTHAI}", "- tipThai: the same explanation as tip, written in natural Thai for a Thai first-language learner.\n");
+
+        string BuildSystemPrompt(string scenario)
+        {
+            var sc = scenariosObj[scenario] as JObject
+                ?? throw new InvalidOperationException($"Unknown scenario: {scenario}");
+            string persona = (string)sc["persona"];
+            var rules = sc["rules"]?.Select(r => (string)r).ToList() ?? new List<string>();
+            var sb = new StringBuilder();
+            sb.Append(persona).Append("\n\n");
+            if (rules.Count > 0)
+            {
+                const string ObjectiveRules =
+                    "QUEST EVALUATION RULES:\n" +
+                    "- List a quest number in questsCompleted only when the user actually accomplished that objective with an understandable sentence.\n" +
+                    "- A bare keyword or fragment does not complete an objective even when the topic matches: \"total price\" is not asking for the total, it is naming a subject. The learner is here to practise saying the whole thing.\n" +
+                    "- An objective also does not count when it makes no sense at this point in the conversation - asking the total before ordering anything, for instance.\n" +
+                    "- Be encouraging and friendly in your reply, but do not hand out objectives that were not earned.\n\n";
+                sb.Append("SCENARIO QUEST OBJECTIVES TO EVALUATE:\n");
+                for (int idx = 0; idx < rules.Count; idx++)
+                    sb.Append($"- Quest {idx + 1}: {rules[idx]}\n");
+                sb.Append('\n').Append(ObjectiveRules);
+            }
+            sb.Append("IMPORTANT: Write all feedback in clear, simple English, with no emojis. The one exception is the tipThai field, which is written in Thai.\n\n");
+            sb.Append(promptBody);
+            return sb.ToString();
+        }
+
+        // Load exact strat24 subset (indices 0, 2, 5 per scenario) matching Part 3a/3b
+        string e2CsvPath = File.Exists(Path.Combine(resultsDir, "e2_turns.csv"))
+            ? Path.Combine(resultsDir, "e2_turns.csv")
+            : Path.Combine(archiveDir, "data", "e2_turns.csv");
+        string audioDir = Directory.Exists(Path.Combine(resultsDir, "audio"))
+            ? Path.Combine(resultsDir, "audio")
+            : Path.Combine(archiveDir, "data", "audio");
+
+        var seenUids = new HashSet<string>(StringComparer.Ordinal);
+        var byScenario = new Dictionary<string, List<(string uid, string scenario)>>();
+        foreach (string line in File.ReadLines(e2CsvPath, Encoding.UTF8).Skip(1))
+        {
+            if (string.IsNullOrWhiteSpace(line)) continue;
+            int c1 = line.IndexOf(',');
+            int c2 = line.IndexOf(',', c1 + 1);
+            if (c1 <= 0 || c2 <= c1) continue;
+            string uid = line.Substring(0, c1).Trim();
+            string sc = line.Substring(c1 + 1, c2 - c1 - 1).Trim();
+            if (seenUids.Add(uid))
+            {
+                if (!byScenario.TryGetValue(sc, out var list))
+                {
+                    list = new List<(string, string)>();
+                    byScenario[sc] = list;
+                }
+                list.Add((uid, sc));
+            }
+        }
+        var orderedUids = byScenario.Values
+            .OrderBy(lst => lst[0].uid, StringComparer.Ordinal)
+            .SelectMany(lst => new[] { lst[0], lst[2], lst[5] })
+            .ToList();
+
+        // Start local ASP.NET Core Kestrel license proxy forwarding to live Gemini 3.6 Flash (thinkingBudget=0)
+        using var upstreamHttp = new HttpClient(new SocketsHttpHandler
+        {
+            PooledConnectionLifetime = TimeSpan.FromMinutes(10),
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+        })
+        { Timeout = TimeSpan.FromSeconds(90) };
+
+        var webBuilder = WebApplication.CreateBuilder();
+        webBuilder.Logging.ClearProviders();
+        webBuilder.WebHost.UseUrls("http://127.0.0.1:0");
+        var app = webBuilder.Build();
+        app.MapPost("/v1/turn", async (HttpRequest req, HttpResponse resp) =>
+        {
+            using var reader = new StreamReader(req.Body, Encoding.UTF8);
+            string bodyStr = await reader.ReadToEndAsync();
+            var reqObj = JObject.Parse(bodyStr);
+            string scenario = reqObj["scenario"]?.ToString() ?? "CafeRestaurant";
+            string audioB64 = reqObj["audio"]?["data"]?.ToString() ?? "";
+            string sysPrompt = BuildSystemPrompt(scenario);
+
+            var genBody = new JObject
+            {
+                ["systemInstruction"] = new JObject { ["parts"] = new JArray { new JObject { ["text"] = sysPrompt } } },
+                ["generationConfig"] = new JObject
+                {
+                    ["temperature"] = 0.9,
+                    ["maxOutputTokens"] = 2048,
+                    ["thinkingConfig"] = new JObject { ["thinkingBudget"] = 0 },
+                    ["responseMimeType"] = "application/json",
+                    ["responseSchema"] = schemaObj
+                },
+                ["contents"] = new JArray
+                {
+                    new JObject
+                    {
+                        ["role"] = "user",
+                        ["parts"] = new JArray
+                        {
+                            new JObject { ["inlineData"] = new JObject { ["mimeType"] = "audio/wav", ["data"] = audioB64 } },
+                            new JObject { ["text"] = "Listen to my spoken English in this audio. Transcribe it, coach it, reply in character, and list any quest objectives I accomplished. If you cannot hear any actual speech in the audio, return an empty transcription rather than guessing at what I might have said." }
+                        }
+                    }
+                }
+            };
+            string payloadJson = genBody.ToString(Formatting.None);
+            const string endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent";
+
+            for (int attempt = 0; attempt < 4; attempt++)
+            {
+                using var msg = new HttpRequestMessage(HttpMethod.Post, endpoint);
+                msg.Headers.Add("x-goog-api-key", apiKey);
+                msg.Content = new StringContent(payloadJson, Encoding.UTF8, "application/json");
+                var swApi = Stopwatch.StartNew();
+                using var upResp = await upstreamHttp.SendAsync(msg);
+                string upTxt = await upResp.Content.ReadAsStringAsync();
+                swApi.Stop();
+                if ((int)upResp.StatusCode == 200)
+                {
+                    var upJson = JObject.Parse(upTxt);
+                    var parts = upJson["candidates"]?[0]?["content"]?["parts"] as JArray;
+                    var textSb = new StringBuilder();
+                    if (parts != null)
+                    {
+                        foreach (var p in parts)
+                        {
+                            if (p["text"] != null) textSb.Append((string)p["text"]);
+                        }
+                    }
+                    resp.Headers["X-Upstream-Api-Ms"] = swApi.Elapsed.TotalMilliseconds.ToString("F3", CultureInfo.InvariantCulture);
+                    return Results.Content(textSb.ToString(), "application/json");
+                }
+                if ((int)upResp.StatusCode is 429 or 500 or 502 or 503 or 504 && attempt < 3)
+                {
+                    await Task.Delay(1500 * (attempt + 1));
+                    continue;
+                }
+                return Results.Problem($"Upstream HTTP {(int)upResp.StatusCode}: {upTxt}");
+            }
+            return Results.Problem("Exhausted retries");
+        });
+        await app.StartAsync();
+        string proxyUrl = app.Urls.First() + "/v1/turn";
+        using var clientHttp = new HttpClient { Timeout = TimeSpan.FromSeconds(90) };
+
+        // Warm 4-thread Kokoro + Windows waveOut handle
+        using var tts = CreateKokoroTts(4);
+        tts.Generate("Warm up sentence for runtime allocation.", 1.05f, 0).Dispose();
+
+        var wf = new WaveFormatEx
+        {
+            wFormatTag = 1,
+            nChannels = 2,
+            nSamplesPerSec = 48000,
+            wBitsPerSample = 16,
+            nBlockAlign = 4,
+            nAvgBytesPerSec = 48000 * 4,
+            cbSize = 0
+        };
+        int waveRc = waveOutOpen(out IntPtr hWaveOut, -1, ref wf, IntPtr.Zero, IntPtr.Zero, 0);
+        if (waveRc != 0)
+            throw new InvalidOperationException($"waveOutOpen failed with code {waveRc}");
+
+        timeBeginPeriod(1);
+        var perTurn = new List<object>();
+        const double FramePeriodMs = 1000.0 / 60.0;
+
+        try
+        {
+            // 2 real warmup turns (Kestrel + TLS pool to Google + JIT + winmm)
+            foreach (var w in orderedUids.Take(2))
+            {
+                float[] wSmp = ReadWavMonoFloat(Path.Combine(audioDir, $"{w.uid}.wav"), out int wSr);
+                byte[] wBytes = EncodeWavExactClient(wSmp, 1, wSr);
+                string wReq = JsonConvert.SerializeObject(new
+                {
+                    scenario = w.scenario,
+                    mode = "voice",
+                    audio = new { mimeType = "audio/wav", data = Convert.ToBase64String(wBytes) }
+                });
+                using var wr = await clientHttp.PostAsync(proxyUrl, new StringContent(wReq, Encoding.UTF8, "application/json"));
+                wr.EnsureSuccessStatusCode();
+                await Task.Delay(250);
+            }
+
+            foreach (var (uid, scenario) in orderedUids)
+            {
+                float[] samples = ReadWavMonoFloat(Path.Combine(audioDir, $"{uid}.wav"), out int sr);
+
+                // Single continuous wall-clock turn timer starting at push-to-talk release
+                var swTurn = Stopwatch.StartNew();
+
+                var swValEnc = Stopwatch.StartNew();
+                float _peak = PeakAmplitudeClient(samples);
+                SpeechTiming _timing = TurnSkills.MeasureTiming(samples, 1, sr);
+                byte[] wavBytes = EncodeWavExactClient(samples, 1, sr);
+                string b64 = Convert.ToBase64String(wavBytes);
+                string reqJson = JsonConvert.SerializeObject(new
+                {
+                    scenario,
+                    mode = "voice",
+                    audio = new { mimeType = "audio/wav", data = b64 }
+                });
+                swValEnc.Stop();
+
+                var swProxyApi = Stopwatch.StartNew();
+                using var resp = await clientHttp.PostAsync(proxyUrl, new StringContent(reqJson, Encoding.UTF8, "application/json"));
+                resp.EnsureSuccessStatusCode();
+                string rawCoachJson = await resp.Content.ReadAsStringAsync();
+                swProxyApi.Stop();
+                double upstreamApiMs = resp.Headers.TryGetValues("X-Upstream-Api-Ms", out var vals)
+                    && double.TryParse(vals.First(), NumberStyles.Float, CultureInfo.InvariantCulture, out double upMs)
+                    ? upMs
+                    : swProxyApi.Elapsed.TotalMilliseconds;
+
+                var swParseChunk = Stopwatch.StartNew();
+                ParsedResponse pr = ParsedResponse.Parse(rawCoachJson, null);
+                string replyText = string.IsNullOrWhiteSpace(pr.Text) ? "Okay." : pr.Text;
+                List<string> chunks = AdaptiveChunksPostMergeCSharp(replyText);
+                string chunk0 = chunks.Count > 0 ? chunks[0] : "Okay.";
+                swParseChunk.Stop();
+
+                var swSynth0 = Stopwatch.StartNew();
+                var audio = tts.Generate(chunk0, 1.05f, 0);
+                float[] rawOut = audio.Samples;
+                int outSr = audio.SampleRate;
+                audio.Dispose();
+                swSynth0.Stop();
+
+                var swResamp = Stopwatch.StartNew();
+                short[] pcm48 = Resample24kTo48kStereoPcm16(rawOut);
+                int bytesLen = Math.Min(pcm48.Length * 2, 48000 * 2 * 2 / 10);
+                byte[] buf = new byte[bytesLen];
+                Buffer.BlockCopy(pcm48, 0, buf, 0, bytesLen);
+                Array.Clear(buf, 0, bytesLen); // Keep speakers silent while submitting valid 48kHz stereo PCM buffer
+                swResamp.Stop();
+
+                // Real 60 Hz polling grid wait until next 16.67 ms frame tick
+                var swFrameWait = Stopwatch.StartNew();
+                double nowBeforeWait = swTurn.Elapsed.TotalMilliseconds;
+                double nextFrameTick = Math.Ceiling(nowBeforeWait / FramePeriodMs) * FramePeriodMs;
+                while (swTurn.Elapsed.TotalMilliseconds < nextFrameTick)
+                {
+                    double rem = nextFrameTick - swTurn.Elapsed.TotalMilliseconds;
+                    if (rem > 2.0) Thread.Sleep(1);
+                    else Thread.SpinWait(64);
+                }
+                swFrameWait.Stop();
+
+                var swWaveOut = Stopwatch.StartNew();
+                var handle = GCHandle.Alloc(buf, GCHandleType.Pinned);
+                var hdr = new WaveHdr
+                {
+                    lpData = handle.AddrOfPinnedObject(),
+                    dwBufferLength = (uint)bytesLen,
+                    dwFlags = 0
+                };
+                try
+                {
+                    int prepRc = waveOutPrepareHeader(hWaveOut, ref hdr, Marshal.SizeOf<WaveHdr>());
+                    int writeRc = waveOutWrite(hWaveOut, ref hdr, Marshal.SizeOf<WaveHdr>());
+                    if (prepRc != 0 || writeRc != 0)
+                        throw new InvalidOperationException($"waveOut error prep={prepRc} write={writeRc}");
+                }
+                finally
+                {
+                    // Stop continuous turn timer at OS audio driver buffer submission (waveOutWrite completion)
+                    swWaveOut.Stop();
+                    swTurn.Stop();
+                    waveOutReset(hWaveOut);
+                    waveOutUnprepareHeader(hWaveOut, ref hdr, Marshal.SizeOf<WaveHdr>());
+                    handle.Free();
+                }
+
+                double liveOnsetMs = swTurn.Elapsed.TotalMilliseconds;
+                double valEncMs = swValEnc.Elapsed.TotalMilliseconds;
+                double proxyAndApiMs = swProxyApi.Elapsed.TotalMilliseconds;
+                double parseChunkMs = swParseChunk.Elapsed.TotalMilliseconds;
+                double synth0Ms = swSynth0.Elapsed.TotalMilliseconds;
+                double resampleMs = swResamp.Elapsed.TotalMilliseconds;
+                double frameWaitMs = swFrameWait.Elapsed.TotalMilliseconds;
+                double waveOutMs = swWaveOut.Elapsed.TotalMilliseconds;
+                double nonNetClientMs = valEncMs + (proxyAndApiMs - upstreamApiMs) + parseChunkMs + resampleMs + waveOutMs;
+                double stageSumMs = valEncMs + proxyAndApiMs + parseChunkMs + synth0Ms + resampleMs + frameWaitMs + waveOutMs;
+                double reconFormulaMs = upstreamApiMs + synth0Ms + 9.0 + 8.33;
+                double reconWithProxyFormulaMs = proxyAndApiMs + synth0Ms + 9.0 + 8.33;
+                double chunk0AudioMs = 1000.0 * rawOut.Length / outSr;
+
+                perTurn.Add(new
+                {
+                    uid,
+                    scenario,
+                    wavBytes = wavBytes.Length,
+                    chunk0Chars = chunk0.Length,
+                    chunk0AudioMs = Math.Round(chunk0AudioMs, 2),
+                    liveWaveOutOnsetMs = Math.Round(liveOnsetMs, 2),
+                    stageSumMs = Math.Round(stageSumMs, 2),
+                    reconFormulaMs = Math.Round(reconFormulaMs, 2),
+                    reconWithProxyFormulaMs = Math.Round(reconWithProxyFormulaMs, 2),
+                    diffLiveMinusReconMs = Math.Round(liveOnsetMs - reconFormulaMs, 2),
+                    diffLiveMinusProxyReconMs = Math.Round(liveOnsetMs - reconWithProxyFormulaMs, 2),
+                    valEncMs = Math.Round(valEncMs, 2),
+                    proxyAndApiMs = Math.Round(proxyAndApiMs, 2),
+                    upstreamApiMs = Math.Round(upstreamApiMs, 2),
+                    parseChunkMs = Math.Round(parseChunkMs, 2),
+                    synth0Ms = Math.Round(synth0Ms, 2),
+                    resampleMs = Math.Round(resampleMs, 2),
+                    frameWait60HzMs = Math.Round(frameWaitMs, 2),
+                    waveOutMs = Math.Round(waveOutMs, 2),
+                    nonNetworkClientBeforeFrameWaitMs = Math.Round(nonNetClientMs, 2),
+                    jsonOk = pr.HasScore
+                });
+                Console.WriteLine($"    {uid} ({scenario}): live_waveout={liveOnsetMs:F1}ms, recon={reconFormulaMs:F1}ms, diff={liveOnsetMs - reconFormulaMs:+0.0;-0.0}ms (api={upstreamApiMs:F1}ms, synth0={synth0Ms:F1}ms, wait60Hz={frameWaitMs:F1}ms)");
+                await Task.Delay(200);
+            }
+        }
+        finally
+        {
+            timeEndPeriod(1);
+            waveOutClose(hWaveOut);
+            await app.StopAsync();
+        }
+
+        double[] Extract(string prop) => perTurn.Select(r => Convert.ToDouble(r.GetType().GetProperty(prop)!.GetValue(r))).ToArray();
+        var summary = new
+        {
+            n = perTurn.Count,
+            model = "gemini-3.6-flash",
+            thinkingBudget = 0,
+            maxOutputTokens = 2048,
+            threads = 4,
+            boundary = "winmm.dll waveOutWrite OS driver buffer submission",
+            liveWaveOutOnsetMs = ComputeBenchStats(Extract("liveWaveOutOnsetMs")),
+            reconFormulaMs = ComputeBenchStats(Extract("reconFormulaMs")),
+            reconWithProxyFormulaMs = ComputeBenchStats(Extract("reconWithProxyFormulaMs")),
+            diffLiveMinusReconMs = ComputeBenchStats(Extract("diffLiveMinusReconMs")),
+            diffLiveMinusProxyReconMs = ComputeBenchStats(Extract("diffLiveMinusProxyReconMs")),
+            upstreamApiMs = ComputeBenchStats(Extract("upstreamApiMs")),
+            proxyAndApiMs = ComputeBenchStats(Extract("proxyAndApiMs")),
+            synth0Ms = ComputeBenchStats(Extract("synth0Ms")),
+            frameWait60HzMs = ComputeBenchStats(Extract("frameWait60HzMs")),
+            nonNetworkClientBeforeFrameWaitMs = ComputeBenchStats(Extract("nonNetworkClientBeforeFrameWaitMs")),
+            turns = perTurn
+        };
+
+        string outJson = JsonConvert.SerializeObject(summary, Formatting.Indented);
+        string outPath = Path.Combine(resultsDir, "rev_live_client_e2e_24.json");
+        string archiveOutPath = Path.Combine(archiveDir, "data", "rev_live_client_e2e_24.json");
+        var utf8NoBom = new UTF8Encoding(false);
+        File.WriteAllText(outPath, outJson, utf8NoBom);
+        if (Directory.Exists(Path.GetDirectoryName(archiveOutPath)))
+            File.WriteAllText(archiveOutPath, outJson, utf8NoBom);
         Console.WriteLine($"  Wrote {outPath}");
     }
 }
