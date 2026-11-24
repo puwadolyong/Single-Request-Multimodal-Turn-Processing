@@ -2,8 +2,6 @@
 
 
 
----
-
 ## 1. Exact Pinned Model, Voice, Runtime, and Hardware Identifiers
 
 | Component | Identifier / Configuration |
