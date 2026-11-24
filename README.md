@@ -1,6 +1,6 @@
 # Reproducibility Archive — Single-Request Multimodal Turn Processing & Adaptive On-Device TTS
 
-This archive (`https://github.com/puwadolyong/Single-Request-Multimodal-Turn-Processing`) contains the prompts, JSON schema, client/server source code, dataset metadata, evaluation scripts, archived raw logs, and an offline deterministic table/metric verification script (`reproduce_tables.py`) supporting the revised manuscript submitted to the **International Journal of Intelligent Engineering and Systems (IJIES)** (Paper ID `20267603`).
+
 
 ---
 
